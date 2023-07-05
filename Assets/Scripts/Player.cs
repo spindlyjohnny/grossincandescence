@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     CharacterController controller;
-    public float speed = 5f;
+    public float movespeed = 5f;
     //Animator anim;
     Vector3 velocity;
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
         if (controller.isGrounded) velocity = Vector3.zero;
         else velocity += Physics.gravity * Time.deltaTime;
         Vector3 displacement = transform.TransformDirection(movement.normalized) + velocity; // convert mvmt from global coords to local coords.
-        controller.Move(displacement * speed * Time.deltaTime);
+        controller.Move(displacement * movespeed * Time.deltaTime);
         //anim.SetFloat("moveX", movement.x);
         //anim.SetFloat("moveY", movement.z);
         transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
