@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float movespeed = 5f;
     //Animator anim;
     Vector3 velocity;
+    Vector3 movement;
     // Start is called before the first frame update
     void Start() {
         controller = GetComponent<CharacterController>();
@@ -16,15 +17,20 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        //add gravity acceleration every frame
-        if (controller.isGrounded) velocity = Vector3.zero;
-        else velocity += Physics.gravity * Time.deltaTime;
-        Vector3 displacement = transform.TransformDirection(movement.normalized) + velocity; // convert mvmt from global coords to local coords.
-        controller.Move(displacement * movespeed * Time.deltaTime);
         //anim.SetFloat("moveX", movement.x);
         //anim.SetFloat("moveY", movement.z);
+        movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        //add gravity acceleration every frame
+        if (controller.isGrounded) {
+            velocity = Vector3.zero;
+        }
+        else { 
+            velocity += Physics.gravity * Time.deltaTime; 
+        }
+        Vector3 displacement = transform.TransformDirection(movement.normalized) + velocity; // convert mvmt from global coords to local coords.
+        controller.Move(displacement * movespeed * Time.deltaTime);
         transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
+        //lock-on
         //if (Input.GetButtonDown("Fire1")) anim.SetTrigger("Attack");
     }
 }
