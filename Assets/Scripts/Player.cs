@@ -31,5 +31,6 @@ public class Player : MonoBehaviour
         controller.Move(displacement * movespeed * Time.deltaTime);
         transform.Rotate(0, Input.GetAxis("Mouse X") * turnspeed, 0);
         if (Input.GetButtonDown("Attack")) anim.SetTrigger("Attack");
+        
     }
 }
