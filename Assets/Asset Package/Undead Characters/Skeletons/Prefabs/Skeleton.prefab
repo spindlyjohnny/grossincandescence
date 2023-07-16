@@ -156,6 +156,8 @@ GameObject:
   - component: {fileID: 492854}
   - component: {fileID: 3332560}
   - component: {fileID: 2389698}
+  - component: {fileID: 8427313113487773247}
+  - component: {fileID: 5654964682417651677}
   m_Layer: 0
   m_Name: SWORD
   m_TagString: Untagged
@@ -226,6 +228,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &8427313113487773247
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.15812209
+  m_Height: 3.4135222
+  m_Direction: 2
+  m_Center: {x: 0.010608544, y: -0.00813701, z: 2.1820946}
+--- !u!114 &5654964682417651677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f03f816e2b865249b541629dfb2542e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1 &125488
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +389,8 @@ GameObject:
   m_Component:
   - component: {fileID: 495872}
   - component: {fileID: 11195950}
+  - component: {fileID: 3230545101838051667}
+  - component: {fileID: 3784332875758321312}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -402,6 +433,43 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &3230545101838051667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9836de18829e9b444b8a2d6b7ea91f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitpoints: 0
+  maxhitpoints: 0
+  healthbar: {fileID: 0}
+  hitsound: {fileID: 0}
+  bloodvfx: {fileID: 0}
+  canMove: 0
+  knockbackforce: 0
+  knockbacklength: 0
+  knockbackcounter: 0
+  knockbackdir: {x: 0, y: 0}
+  anim: {fileID: 0}
+  damage: 1
+--- !u!65 &3784332875758321312
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137098}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8326526, y: 7.1468797, z: 2.035239}
+  m_Center: {x: -0.05491736, y: 3.073437, z: 0.234944}
 --- !u!1 &138244
 GameObject:
   m_ObjectHideFlags: 0
