@@ -16,11 +16,4 @@ public class Weapon : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Unit>()) {
-            Unit unit = other.GetComponent<Unit>();
-            unit.TakeHit(damage);
-            StartCoroutine(unit.Hit());
-        }
-    }
 }

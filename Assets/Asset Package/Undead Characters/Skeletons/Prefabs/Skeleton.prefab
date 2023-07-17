@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f03f816e2b865249b541629dfb2542e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
 --- !u!1 &125488
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,9 +388,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 495872}
-  - component: {fileID: 11195950}
   - component: {fileID: 3230545101838051667}
   - component: {fileID: 3784332875758321312}
+  - component: {fileID: 8719147001907657747}
+  - component: {fileID: 11195950}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -414,6 +415,64 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3230545101838051667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9836de18829e9b444b8a2d6b7ea91f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitpoints: 0
+  maxhitpoints: 3
+  healthbar: {fileID: 0}
+  hitsound: {fileID: 0}
+  bloodvfx: {fileID: 0}
+  canMove: 0
+  isHit: 0
+  anim: {fileID: 0}
+  rb: {fileID: 0}
+  damage: 1
+  target: {fileID: 0}
+--- !u!65 &3784332875758321312
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137098}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8326526, y: 7.1468797, z: 2.035239}
+  m_Center: {x: -0.05491736, y: 3.073437, z: 0.234944}
+--- !u!195 &8719147001907657747
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137098}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!111 &11195950
 Animation:
   m_ObjectHideFlags: 0
@@ -433,43 +492,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
---- !u!114 &3230545101838051667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9836de18829e9b444b8a2d6b7ea91f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitpoints: 0
-  maxhitpoints: 0
-  healthbar: {fileID: 0}
-  hitsound: {fileID: 0}
-  bloodvfx: {fileID: 0}
-  canMove: 0
-  knockbackforce: 0
-  knockbacklength: 0
-  knockbackcounter: 0
-  knockbackdir: {x: 0, y: 0}
-  anim: {fileID: 0}
-  damage: 1
---- !u!65 &3784332875758321312
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137098}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.8326526, y: 7.1468797, z: 2.035239}
-  m_Center: {x: -0.05491736, y: 3.073437, z: 0.234944}
 --- !u!1 &138244
 GameObject:
   m_ObjectHideFlags: 0
