@@ -434,10 +434,15 @@ MonoBehaviour:
   bloodvfx: {fileID: 0}
   canMove: 0
   isHit: 0
+  dead: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
   damage: 1
   target: {fileID: 0}
+  spawner: {fileID: 0}
+  spawned: 0
+  soulvalue: 100
+  player: {fileID: 0}
 --- !u!65 &3784332875758321312
 BoxCollider:
   m_ObjectHideFlags: 0

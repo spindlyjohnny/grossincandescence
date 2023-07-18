@@ -2080,7 +2080,7 @@ PrefabInstance:
       objectReference: {fileID: 1173871351}
     - target: {fileID: 5775236726785507489, guid: e07e0a5b09d5d8f428c342db83a6e1f4, type: 3}
       propertyPath: enemiestospawn.Array.data[0]
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5775236726785507502, guid: e07e0a5b09d5d8f428c342db83a6e1f4, type: 3}
       propertyPath: m_Name
