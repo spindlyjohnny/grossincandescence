@@ -780,10 +780,13 @@ MonoBehaviour:
   bloodvfx: {fileID: 0}
   canMove: 0
   isHit: 0
+  dead: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
   movespeed: 5
   turnspeed: 15
+  respawnpoint: {x: 0, y: 0, z: 0}
+  iframes: 0.4
 --- !u!95 &6555955128382959162
 Animator:
   serializedVersion: 3

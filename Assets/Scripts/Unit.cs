@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour
     public Slider healthbar;
     public AudioClip hitsound;
     public GameObject bloodvfx;
-    public bool canMove,isHit;
+    public bool canMove,isHit,dead;
     //public float knockbackforce;
     //public float knockbacklength;
     //public float knockbackcounter;
@@ -25,15 +25,22 @@ public class Unit : MonoBehaviour
         healthbar.value = health;
         healthbar.maxValue = maxHealth;
     }
-    public IEnumerator Hit() {
+    public virtual IEnumerator Hit() {
         isHit = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.4f);
         isHit = false;
     }
+    protected void OnEnable() {
+        isHit = false;
+        Physics.IgnoreLayerCollision(3, 6, false);
+    }
     public void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Weapon>() && !GetComponent<Collider>().isTrigger) {
-            TakeHit(other.GetComponent<Weapon>().damage);
-            StartCoroutine(Hit());
+        if (other.GetComponent<Weapon>() && other.GetComponentInParent<Unit>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) {
+            Damaged(other);
         }
+    }
+    protected virtual void Damaged(Collider other) {
+        TakeHit(other.GetComponent<Weapon>().damage);
+        StartCoroutine(Hit());
     }
 }
