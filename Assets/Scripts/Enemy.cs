@@ -33,11 +33,11 @@ public class Enemy : Unit
         }
     }
     public override void OnTriggerEnter(Collider other) {
+        if (other.GetComponent<Weapon>() && other.GetComponentInParent<Player>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) player = other.GetComponentInParent<Player>();
         base.OnTriggerEnter(other);
-        if (other.GetComponentInParent<Player>() && other.GetComponentInParent<Player>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) player = other.GetComponentInParent<Player>();
-        return;
     }
     public virtual IEnumerator Death() {
+        
         player.souls += soulvalue;
         agent.velocity = Vector3.zero;
         if (!dead) {

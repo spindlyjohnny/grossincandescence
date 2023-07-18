@@ -441,7 +441,7 @@ MonoBehaviour:
   target: {fileID: 0}
   spawner: {fileID: 0}
   spawned: 0
-  soulvalue: 100
+  soulvalue: 25
   player: {fileID: 0}
 --- !u!65 &3784332875758321312
 BoxCollider:
