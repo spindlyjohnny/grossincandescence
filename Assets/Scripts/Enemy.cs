@@ -11,6 +11,7 @@ public class Enemy : Unit
     public Transform spawner;
     public bool spawned;
     LevelManager levelManager;
+    public int soulvalue;
     // Start is called before the first frame update
     void Start()
     {

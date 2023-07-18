@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
         isHit = false;
         Physics.IgnoreLayerCollision(3, 6, false);
     }
-    public void OnTriggerEnter(Collider other) {
+    public virtual void OnTriggerEnter(Collider other) {
         if (other.GetComponent<Weapon>() && other.GetComponentInParent<Unit>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) {
             Damaged(other);
         }

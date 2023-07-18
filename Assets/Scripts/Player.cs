@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Unit
 {
@@ -9,6 +10,8 @@ public class Player : Unit
     LevelManager levelManager;
     public Vector3 respawnpoint;
     public float iframes;
+    public int souls;
+    public Text soulcount;
     // Start is called before the first frame update
     void Start() {
         anim = GetComponent<Animator>();
@@ -23,6 +26,7 @@ public class Player : Unit
         anim.SetFloat("moveX", movement.x);
         anim.SetFloat("moveY", movement.z);
         anim.SetBool("Hit", isHit);
+        soulcount.text = souls.ToString();
         movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Rotate(0, Input.GetAxis("Mouse X") * turnspeed, 0);
         if (Input.GetButtonDown("Attack")) anim.SetTrigger("Attack");
