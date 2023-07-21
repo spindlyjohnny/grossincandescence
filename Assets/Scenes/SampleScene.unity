@@ -342,7 +342,7 @@ MonoBehaviour:
   iframes: 0
   souls: 0
   soulcount: {fileID: 0}
-  stamina: 0
+  maxstamina: 0
   staminabar: {fileID: 0}
 --- !u!143 &706182768
 CharacterController:
@@ -1779,6 +1779,69 @@ PrefabInstance:
       objectReference: {fileID: 859689902}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7e8a5bb79537a441836a1e2ea02a005, type: 3}
+--- !u!1 &1481570788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1481570791}
+  - component: {fileID: 1481570790}
+  - component: {fileID: 1481570789}
+  m_Layer: 0
+  m_Name: Room Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1481570789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481570788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b877a966bbb78cd48a68699d22be06af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomwaves: 0
+  roomstart: 0
+  myenemyspawns: []
+  exit: []
+  entrance: []
+  triggers: []
+--- !u!65 &1481570790
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481570788}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.574271, y: 1, z: 1}
+  m_Center: {x: -0.4196601, y: 0, z: 0}
+--- !u!4 &1481570791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481570788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1516982324 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2270934342824706078, guid: dc1cdfd343a961a468447c3d98071ed1, type: 3}

@@ -37,7 +37,6 @@ public class Enemy : Unit
         base.OnTriggerEnter(other);
     }
     public virtual IEnumerator Death() {
-        
         player.souls += soulvalue;
         agent.velocity = Vector3.zero;
         if (!dead) {
@@ -49,7 +48,7 @@ public class Enemy : Unit
         //Destroy(Instantiate(maskvfx, transform.position, transform.rotation), 1);
         yield return null;
         Destroy(gameObject);
-        //if (spawned) levelManager.enemieskilled += 1; levelManager.totalenemieskilled += 1;
+        if (spawned) levelManager.enemieskilled += 1;
         //for (int i = 0; i < Random.Range(1, dropamt + 1); i++) {
         //    Instantiate(itemdrops[Random.Range(0, itemdrops.Length)], transform.position, transform.rotation);
         //}

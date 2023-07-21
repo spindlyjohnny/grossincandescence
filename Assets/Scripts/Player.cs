@@ -12,8 +12,10 @@ public class Player : Unit
     public float iframes;
     public int souls;
     public Text soulcount;
-    public float stamina;
+    private float stamina;
+    public float maxstamina;
     public Slider staminabar;
+    Coroutine staminaregen;
     public enum Actions{attack,dodge,block}
     // Start is called before the first frame update
     void Start() {
@@ -23,7 +25,8 @@ public class Player : Unit
         levelManager = FindObjectOfType<LevelManager>();
         respawnpoint = transform.position;
         staminabar.value = stamina;
-        staminabar.maxValue = stamina;
+        staminabar.maxValue = maxstamina;
+        stamina = maxstamina;
     }
     // Update is called once per frame
     void Update() {
@@ -35,7 +38,7 @@ public class Player : Unit
         soulcount.text = souls.ToString();
         movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Rotate(0, Input.GetAxis("Mouse X") * turnspeed, 0);
-        if (Input.GetButtonDown("Attack")) ConsumeStamina(Actions.attack);
+        if (Input.GetButtonDown("Attack")) ConsumeStamina(Actions.attack,15f);
         if (hitpoints <= 0) {
             dead = true;
             Death();
@@ -48,28 +51,47 @@ public class Player : Unit
     }
     public void Death() {
         dead = true;
-        rb.velocity = Vector2.zero;
+        movement = Vector2.zero;
         //Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), 1);
     }
     public override IEnumerator Hit() {
         isHit = true;
+        StartCoroutine(Invincibility());
+        isHit = false;
+        yield return null;
+    }
+    IEnumerator Invincibility() {
         Physics.IgnoreLayerCollision(3, 6, true);
         yield return new WaitForSeconds(iframes);
-        isHit = false;
         Physics.IgnoreLayerCollision(3, 6, false);
     }
-    protected virtual void ConsumeStamina(Actions action) {
+    protected virtual void ConsumeStamina(Actions action,float amt) {
+        if (!(stamina - amt >= 0)) return;
         switch (action) {
             case Actions.attack:
                 anim.SetTrigger("Attack");
-                stamina -= 1;
+                stamina -= amt;
+                if (staminaregen != null) StopCoroutine(StaminaRegen());
+                staminaregen = StartCoroutine(StaminaRegen());
                 break;
             case Actions.dodge:
-                stamina -= 1;
+                stamina -= amt;
+                if (staminaregen != null) StopCoroutine(StaminaRegen());
+                staminaregen = StartCoroutine(StaminaRegen());
                 break;
             case Actions.block:
-                stamina -= 1;
+                stamina -= amt;
+                if (staminaregen != null) StopCoroutine(StaminaRegen());
+                staminaregen = StartCoroutine(StaminaRegen());
                 break;
         }
+    }
+    IEnumerator StaminaRegen() {
+        yield return new WaitForSeconds(2f);
+        while(stamina < maxstamina) {
+            stamina += maxstamina / 100;
+            yield return new WaitForSeconds(0.1f);
+        }
+        staminaregen = null;
     }
 }

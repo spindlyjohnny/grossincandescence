@@ -5,45 +5,52 @@ using UnityEditor;
 
 public class CameraController : MonoBehaviour {
 
-    public Transform target; // Who the camera is targetting.
+    public Transform target;
 
     [Header("Positioning")]
-    public Vector3 positionOffset; // Where the camera is relative to the target.
-    public Vector3 lookOffset; // Which part of the target the camera looks at.
-    public float smoothing = 1f; // How fast the camera moves.
+    public Vector3 positionOffset = new Vector3(0, 1, -3);
+    public Vector3 lookOffset = new Vector3(0, 1, -3);
+    public float smoothing = 1f;
 
     [Header("Orientation")]
     public float lookAngle = 0;
-    public bool overTheShoulder = false; // Does the camera stay behind the player?
+    public bool overTheShoulder = false;
 
-    // Update is called once per frame
-    void Update() {
-        if (overTheShoulder) lookAngle = target.rotation.eulerAngles.y;
-        Vector3 po = Quaternion.Euler(0, lookAngle, 0) * positionOffset;
-
-        transform.position = Vector3.Lerp(
-            transform.position,
-            target.position + po,
-            smoothing * Time.deltaTime
-        );
-
-        Vector3 lookPos = target.position + target.TransformDirection(lookOffset);
-        transform.rotation = Quaternion.LookRotation(lookPos - transform.position);
-    }
-
-    // Draws the position of where the camera is at, and where it is looking at.
-    void OnDrawGizmos() {
+    void OnDrawGizmosSelected() {
         if (Application.isPlaying) return;
 
         if (overTheShoulder) lookAngle = target.rotation.eulerAngles.y;
         Vector3 po = Quaternion.Euler(0, lookAngle, 0) * positionOffset,
                 lo = target.TransformDirection(lookOffset);
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
         Gizmos.DrawLine(target.position + po, target.position + lo);
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, target.position + po);
         Gizmos.DrawIcon(target.position + po, "d_ViewToolOrbit On@2x", false);
         Gizmos.DrawIcon(target.position + lo, "d_ViewToolOrbit On", false);
+    }
+
+    // Update is called once per frame
+    void Update() {
+        if (overTheShoulder) lookAngle = target.rotation.eulerAngles.y;
+
+        // Rotate the offset by lookAngle.
+        Vector3 o = Quaternion.Euler(0, lookAngle, 0) * positionOffset;
+
+        // Moves the camera to the desired location.
+        transform.position = Vector3.Lerp(
+            transform.position,
+            target.position + o,
+            Time.deltaTime * smoothing
+        );
+
+        // Makes the camera look at where we want it to look.
+        Vector3 lo = target.TransformDirection(lookOffset);
+        transform.rotation = Quaternion.Lerp(
+            transform.rotation,
+            Quaternion.LookRotation(lo - o),
+            Time.deltaTime * smoothing
+        );
     }
 }

@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
         if (canSpawn) {
             Spawn();
         }
-        //if (!levelManager.currentroom.GetComponent<Room>().roomstart && levelManager.wavecomplete) gameObject.SetActive(false);
+        if (!levelManager.currentroom.roomstart && levelManager.wavecomplete) gameObject.SetActive(false);
     }
     void Spawn() {
         if (enemiesspawned <= enemiestospawn[currentwave] - 1 && !player.dead) { // remember that length of enemiestospawn has to be 1 more than the number of waves

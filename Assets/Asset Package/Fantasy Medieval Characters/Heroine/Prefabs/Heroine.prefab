@@ -787,6 +787,10 @@ MonoBehaviour:
   turnspeed: 15
   respawnpoint: {x: 0, y: 0, z: 0}
   iframes: 0.4
+  souls: 0
+  soulcount: {fileID: 0}
+  maxstamina: 100
+  staminabar: {fileID: 0}
 --- !u!95 &6555955128382959162
 Animator:
   serializedVersion: 3
