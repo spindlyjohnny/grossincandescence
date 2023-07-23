@@ -20,6 +20,7 @@ public class Enemy : Unit
         hitpoints = maxhitpoints;
         agent = GetComponent<NavMeshAgent>();
         levelManager = FindObjectOfType<LevelManager>();
+        target = FindObjectOfType<Player>().transform;
     }
 
     // Update is called once per frame
@@ -27,12 +28,13 @@ public class Enemy : Unit
     {
         //SetHealth(hitpoints, maxhitpoints);
         //anim.SetBool("Hit", isHit);
-        agent.SetDestination(target.position);
+        agent.SetDestination(target.position); // follow player
         if (hitpoints <= 0) {
             StartCoroutine(Death());
         }
     }
     public override void OnTriggerEnter(Collider other) {
+        // sets player var to whichever player attacks the enemy and checks if the enemy got hit by a weapon. This is to add souls to the correct player upon death.
         if (other.GetComponent<Weapon>() && other.GetComponentInParent<Player>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) player = other.GetComponentInParent<Player>();
         base.OnTriggerEnter(other);
     }
@@ -48,7 +50,7 @@ public class Enemy : Unit
         //Destroy(Instantiate(maskvfx, transform.position, transform.rotation), 1);
         yield return null;
         Destroy(gameObject);
-        if (spawned) levelManager.enemieskilled += 1;
+        if (spawned) levelManager.enemieskilled += 1; // only adds to the wave's enemy kill count if the enemy was spawned by a spawner.
         //for (int i = 0; i < Random.Range(1, dropamt + 1); i++) {
         //    Instantiate(itemdrops[Random.Range(0, itemdrops.Length)], transform.position, transform.rotation);
         //}

@@ -46,7 +46,8 @@ MonoBehaviour:
   enemiesspawned: 0
   enemiestospawn: 02000000
   instprefab:
+  - {fileID: 137098, guid: c7e8a5bb79537a441836a1e2ea02a005, type: 3}
   - {fileID: 0}
   instrate: 3
-  canSpawn: 1
+  canSpawn: 0
   currentwave: 0

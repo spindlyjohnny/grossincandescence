@@ -8,8 +8,8 @@ public class LevelManager : MonoBehaviour
     Player player;
     public bool wavecomplete;
     public int waves;
-    public int enemieskilled;
-    public int totalenemiesinwave = 0;
+    public int enemieskilled; // how many enemies have been killed
+    public int totalenemiesinwave = 0; // how many enemies spawn in the wave
     public Room currentroom;
     public List<EnemySpawner> enemyspawns;
     // Start is called before the first frame update
@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour
             //PlayerPrefs.SetInt("Current Room", rooms.IndexOf(currentroom));
             if (enemieskilled == totalenemiesinwave) {
                 wavecomplete = true;
-                StartCoroutine(EndOfWave());
+                EndOfWave();
             }
             if (waves == 0 && currentroom.roomstart) {
                 currentroom.roomstart = false;
@@ -36,21 +36,22 @@ public class LevelManager : MonoBehaviour
     public void Respawn() {
         StartCoroutine(RespawnCo());
     }
-    IEnumerator EndOfWave() {
+    void EndOfWave() {
         if (waves > 0) {
             waves -= 1;
-            enemieskilled = 0;
+            enemieskilled = 0; // reset for next wave
             totalenemiesinwave = 0;
             foreach (var i in enemyspawns) {
-                i.canSpawn = false;
+                i.canSpawn = false; // prevent spawners from spawning after wave ends
                 i.currentwave += 1;
-                totalenemiesinwave += i.enemiestospawn[i.currentwave];
-                i.enemiesspawned = 0;
+                totalenemiesinwave += i.enemiestospawn[i.currentwave]; // adds up number of enemies to spawn from each spawner for the current wave
+                i.enemiesspawned = 0; // reset number of enemies spawned from each spawner
             }
-            yield return new WaitForSeconds(4f);
-            foreach (var i in enemyspawns) {
-                i.canSpawn = true;
-            }
+        }
+    }
+    void StartWave() {
+        foreach (var i in enemyspawns) {
+            i.canSpawn = true;
         }
     }
     IEnumerator RespawnCo() {

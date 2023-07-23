@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public int enemiesspawned;
-    public int[] enemiestospawn;
-    // Start is called before the first frame update
-    public GameObject[] instprefab;
+    public int enemiesspawned; // number of enemies spawned
+    public int[] enemiestospawn; // number of enemies to spawn for each wave
+    public GameObject[] instprefab; // types of enemies to spawn
     public float instrate;
     LevelManager levelManager;
     Player player;
     float nextinsttime;
     public bool canSpawn;
     public int currentwave;
+    
+    // Start is called before the first frame update
     void Start() {
         levelManager = FindObjectOfType<LevelManager>();
         player = FindObjectOfType<Player>();
@@ -26,12 +27,12 @@ public class EnemySpawner : MonoBehaviour
         if (canSpawn) {
             Spawn();
         }
-        if (!levelManager.currentroom.roomstart && levelManager.wavecomplete) gameObject.SetActive(false);
+        if (!levelManager.currentroom.roomstart && levelManager.wavecomplete) gameObject.SetActive(false); // deactivates object if room is complete to reduce number of objects to load
     }
     void Spawn() {
         if (enemiesspawned <= enemiestospawn[currentwave] - 1 && !player.dead) { // remember that length of enemiestospawn has to be 1 more than the number of waves
             if (Time.time < nextinsttime) return;
-            GameObject go = Instantiate(instprefab[Random.Range(0, instprefab.Length)], transform.position, transform.rotation);
+            GameObject go = Instantiate(instprefab[Random.Range(0, instprefab.Length)], transform.position, transform.rotation); // spawns a random enemy type
             go.GetComponentInChildren<Enemy>().spawned = true;
             go.GetComponentInChildren<Enemy>().canMove = true;
             go.GetComponentInChildren<Enemy>().spawner = transform;

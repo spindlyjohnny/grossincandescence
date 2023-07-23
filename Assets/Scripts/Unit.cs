@@ -25,7 +25,7 @@ public class Unit : MonoBehaviour
         healthbar.value = health;
         healthbar.maxValue = maxHealth;
     }
-    public virtual IEnumerator Hit() {
+    public virtual IEnumerator Hit() { // function is set to virtual to account for different wait lengths
         isHit = true;
         yield return new WaitForSeconds(.4f);
         isHit = false;
@@ -35,7 +35,7 @@ public class Unit : MonoBehaviour
         Physics.IgnoreLayerCollision(3, 6, false);
     }
     public virtual void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Weapon>() && other.GetComponentInParent<Unit>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) {
+        if (other.GetComponent<Weapon>() && other.GetComponentInParent<Unit>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) { // take damage if other is a weapon and is an attacking unit
             Damaged(other);
         }
     }

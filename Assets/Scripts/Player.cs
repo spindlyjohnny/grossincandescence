@@ -9,9 +9,9 @@ public class Player : Unit
     Vector3 movement;
     LevelManager levelManager;
     public Vector3 respawnpoint;
-    public float iframes;
+    public float iframes; // invincibility time
     public int souls;
-    public Text soulcount;
+    public Text soulcount; // soul counter
     private float stamina;
     public float maxstamina;
     public Slider staminabar;
@@ -27,6 +27,7 @@ public class Player : Unit
         staminabar.value = stamina;
         staminabar.maxValue = maxstamina;
         stamina = maxstamina;
+        canMove = true;
     }
     // Update is called once per frame
     void Update() {
@@ -37,7 +38,7 @@ public class Player : Unit
         anim.SetBool("Hit", isHit);
         soulcount.text = souls.ToString();
         movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.Rotate(0, Input.GetAxis("Mouse X") * turnspeed, 0);
+        if(canMove)transform.Rotate(0, Input.GetAxis("Mouse X") * turnspeed, 0);
         if (Input.GetButtonDown("Attack")) ConsumeStamina(Actions.attack,15f);
         if (hitpoints <= 0) {
             dead = true;
@@ -47,7 +48,7 @@ public class Player : Unit
         }
     }
     private void FixedUpdate() {
-        rb.MovePosition(rb.position + movement.normalized * movespeed * Time.deltaTime);
+        if (canMove) rb.MovePosition(rb.position + movement.normalized * movespeed * Time.deltaTime);
     }
     public void Death() {
         dead = true;
@@ -61,17 +62,17 @@ public class Player : Unit
         yield return null;
     }
     IEnumerator Invincibility() {
-        Physics.IgnoreLayerCollision(3, 6, true);
+        Physics.IgnoreLayerCollision(3, 6, true); // disable collision with layer 6
         yield return new WaitForSeconds(iframes);
         Physics.IgnoreLayerCollision(3, 6, false);
     }
     protected virtual void ConsumeStamina(Actions action,float amt) {
-        if (!(stamina - amt >= 0)) return;
+        if (!(stamina - amt >= 0) || !canMove) return; // check if player has enough stamina
         switch (action) {
             case Actions.attack:
                 anim.SetTrigger("Attack");
                 stamina -= amt;
-                if (staminaregen != null) StopCoroutine(StaminaRegen());
+                if (staminaregen != null) StopCoroutine(StaminaRegen()); // restart coroutine
                 staminaregen = StartCoroutine(StaminaRegen());
                 break;
             case Actions.dodge:

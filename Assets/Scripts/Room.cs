@@ -22,18 +22,15 @@ public class Room : MonoBehaviour {
     void Update() {
 
     }
-    private void OnTriggerEnter2D(Collider2D collision) {
-        //if (collision.GetComponent<Player>() && gameObject.tag == "Safe") {
-        //    SafeRoomTrigger();
-        //} 
-        if (collision.GetComponent<Player>()) {
+    private void OnTriggerEnter(Collider other) {
+        if (other.GetComponent<Player>()) {
             RoomTrigger();
         }
     }
     void RoomTrigger() {
         roomstart = true;
         levelManager.waves = roomwaves;
-        levelManager.currentroom = this;
+        levelManager.currentroom = gameObject.GetComponent<Room>();
         levelManager.wavecomplete = false;
         levelManager.enemyspawns.Clear();
         //clearText.gameObject.SetActive(true);
