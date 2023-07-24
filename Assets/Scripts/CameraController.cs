@@ -11,7 +11,6 @@ public class CameraController : MonoBehaviour {
     public Vector3 positionOffset = new Vector3(0, 1, -3);
     public Vector3 lookOffset = new Vector3(0, 1, -3);
     public float smoothing = 1f;
-
     [Header("Orientation")]
     public float lookAngle = 0;
     public bool overTheShoulder = false;

@@ -49,11 +49,6 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
-    void StartWave() {
-        foreach (var i in enemyspawns) {
-            i.canSpawn = true;
-        }
-    }
     IEnumerator RespawnCo() {
         yield return new WaitForSeconds(0.25f);
         player.gameObject.SetActive(false); // deactivates player

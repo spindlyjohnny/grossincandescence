@@ -43,6 +43,7 @@ public class Room : MonoBehaviour {
             levelManager.totalenemiesinwave += i.enemiestospawn[i.currentwave]; // adds up the number of enemies to spawn from each spawner for the current wave
         }
         player.respawnpoint = transform.position;
+        gameObject.SetActive(false);
         //AudioManager.instance.PlaySFX(AudioManager.instance.exitSound);
     }
 }
