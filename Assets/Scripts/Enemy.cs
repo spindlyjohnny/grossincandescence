@@ -13,10 +13,12 @@ public class Enemy : Unit
     LevelManager levelManager;
     public int soulvalue;
     public Player player;
+
+    public bool isMoving; //to check if the skeleton is moving
     // Start is called before the first frame update
     void Start()
     {
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         hitpoints = maxhitpoints;
         agent = GetComponent<NavMeshAgent>();
         levelManager = FindObjectOfType<LevelManager>();
@@ -27,14 +29,25 @@ public class Enemy : Unit
     void Update()
     {
         //SetHealth(hitpoints, maxhitpoints);
-        //anim.SetBool("Hit", isHit);
+        anim.SetBool("Hit", isHit);
+        anim.SetBool("Moving", isMoving);
         agent.SetDestination(target.position); // follow player
+        if (agent.hasPath)
+        {
+            isMoving = true;
+            //Debug.Log("NavMeshAgent has a target.");
+        }
+        else
+        {
+            isMoving = false;
+        }
         if (hitpoints <= 0) {
             StartCoroutine(Death());
         }
     }
     public override void OnTriggerEnter(Collider other) {
         // sets player var to whichever player attacks the enemy and checks if the enemy got hit by a weapon. This is to add souls to the correct player upon death.
+        anim.SetTrigger("Attack");
         if (other.GetComponent<Weapon>() && other.GetComponentInParent<Player>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) player = other.GetComponentInParent<Player>();
         base.OnTriggerEnter(other);
     }
