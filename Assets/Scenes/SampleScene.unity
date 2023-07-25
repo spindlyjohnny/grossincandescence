@@ -1744,7 +1744,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5a20e505557957644b6f45fad2002be4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1845,14 +1845,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1039348406076203688, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1039348406076203688, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.9999999
       objectReference: {fileID: 0}
     - target: {fileID: 1039348406076203688, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0.51311415
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097156683133515118, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2099843738170658187, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
@@ -1995,6 +1999,14 @@ PrefabInstance:
       propertyPath: locationname
       value: No Man's Wharf
       objectReference: {fileID: 0}
+    - target: {fileID: 4535093819820080029, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535093820673437189, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4535093821311780544, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.58
@@ -2025,7 +2037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5193853414342787632, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 5260876349655216685, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2101,6 +2113,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8064403737447874547, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8405894971631464225, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
