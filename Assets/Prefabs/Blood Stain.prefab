@@ -507,7 +507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4224691496755885267
 Transform:
   m_ObjectHideFlags: 0
@@ -598,9 +598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66be6ae617f3c0545aff8a2751a27029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  souls: 0
+  souls: 25
   buttonprompt: {fileID: 4224691496651966413}
   player: {fileID: 0}
+  collected: 0
 --- !u!65 &4825336267358872740
 BoxCollider:
   m_ObjectHideFlags: 0
