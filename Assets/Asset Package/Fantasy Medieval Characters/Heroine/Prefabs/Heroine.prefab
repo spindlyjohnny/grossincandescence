@@ -777,7 +777,7 @@ MonoBehaviour:
   maxhitpoints: 10
   healthbar: {fileID: 0}
   hitsound: {fileID: 0}
-  bloodvfx: {fileID: 0}
+  bloodvfx: {fileID: 2128197530583651286, guid: 1998c0256ee69b94e8e74f3b7cd987ec, type: 3}
   canMove: 0
   isHit: 0
   dead: 0

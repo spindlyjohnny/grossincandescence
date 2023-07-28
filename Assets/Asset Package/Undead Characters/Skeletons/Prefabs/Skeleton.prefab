@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 3230545101838051667}
   - component: {fileID: 3784332875758321312}
   - component: {fileID: 8719147001907657747}
-  - component: {fileID: 11195950}
+  - component: {fileID: 6493172175748111998}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -431,7 +431,7 @@ MonoBehaviour:
   maxhitpoints: 3
   healthbar: {fileID: 0}
   hitsound: {fileID: 0}
-  bloodvfx: {fileID: 0}
+  bloodvfx: {fileID: 2128197530583651286, guid: 1998c0256ee69b94e8e74f3b7cd987ec, type: 3}
   canMove: 0
   isHit: 0
   dead: 0
@@ -443,6 +443,7 @@ MonoBehaviour:
   spawned: 0
   soulvalue: 25
   player: {fileID: 0}
+  isMoving: 0
 --- !u!65 &3784332875758321312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -478,25 +479,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!111 &11195950
-Animation:
+--- !u!95 &6493172175748111998
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 137098}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 565d7bdee9496b847a3b218355dff0d9, type: 3}
-  m_Animations:
-  - {fileID: 7400000, guid: 565d7bdee9496b847a3b218355dff0d9, type: 3}
-  - {fileID: 7400000, guid: afb1efdc6cb0a7b49aae10e6113d59a0, type: 3}
-  - {fileID: 7400000, guid: e33de6a369f8fd74b8f251ebba2f8c41, type: 3}
-  - {fileID: 7400000, guid: c40d336521144414b9c50ef0c119b9b7, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 1
+  m_Avatar: {fileID: 9000000, guid: ef35170461c69074f8bebd29edc0240a, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0f18c0f5ab6f40343885d6ac216f434a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &138244
 GameObject:
   m_ObjectHideFlags: 0

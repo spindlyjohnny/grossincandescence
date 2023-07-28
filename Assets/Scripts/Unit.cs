@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour
     }
     public virtual IEnumerator Hit() { // function is set to virtual to account for different wait lengths
         isHit = true;
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
         isHit = false;
     }
     protected void OnEnable() {
@@ -35,7 +35,7 @@ public class Unit : MonoBehaviour
         Physics.IgnoreLayerCollision(3, 6, false);
     }
     public virtual void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Weapon>() && other.GetComponentInParent<Unit>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) { // take damage if other is a weapon and is an attacking unit
+        if (other.GetComponent<Weapon>() && other.GetComponentInParent<Unit>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead) { // take damage if other is a weapon and is an attacking unit
             Damaged(other);
         }
     }
