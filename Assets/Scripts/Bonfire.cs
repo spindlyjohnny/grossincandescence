@@ -18,6 +18,7 @@ public class Bonfire : MonoBehaviour
         buttonprompt.SetActive(false);
         GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
         levelManager = FindObjectOfType<LevelManager>();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -27,6 +28,10 @@ public class Bonfire : MonoBehaviour
             menu.SetActive(true);
             Time.timeScale = 0;
             foreach (var i in FindObjectsOfType<Player>()) i.canMove = false;
+            if (player) {
+                player.hitpoints = player.maxhitpoints;
+                player.heals = 5;
+            }
         }
         locationtext.text = locationname;
     }
@@ -53,6 +58,7 @@ public class Bonfire : MonoBehaviour
         menu.SetActive(false);
         Time.timeScale = 1;
         foreach (var i in FindObjectsOfType<Player>()) i.canMove = true;
+        foreach (var i in FindObjectsOfType<Bonfire>()) i.gameObject.SetActive(false);
     }
     public void Travel() {
         menu.SetActive(false);

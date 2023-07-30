@@ -48,6 +48,7 @@ public class LevelManager : MonoBehaviour
                 i.enemiesspawned = 0; // reset number of enemies spawned from each spawner
             }
         }
+        foreach (var i in FindObjectsOfType<Bonfire>(true)) i.gameObject.SetActive(true);
     }
     IEnumerator RespawnCo() {
         yield return new WaitForSeconds(0.25f);

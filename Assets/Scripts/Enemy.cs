@@ -14,6 +14,7 @@ public class Enemy : Unit
     public int soulvalue;
     public Player player;
     public bool isMoving; //to check if the skeleton is moving
+    Player[] players;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class Enemy : Unit
         levelManager = FindObjectOfType<LevelManager>();
         target = FindObjectOfType<Player>().transform;
         transform.parent.GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
+        players = FindObjectsOfType<Player>();
     }
 
     // Update is called once per frame
@@ -41,11 +43,7 @@ public class Enemy : Unit
         if((transform.position - target.position).magnitude <= agent.stoppingDistance) {
             anim.SetTrigger("Attack");
         }
-    }
-    public override void OnTriggerEnter(Collider other) {
-        // sets player var to whichever player attacks the enemy and checks if the enemy got hit by a weapon. This is to add souls to the correct player upon death.
-        if (other.GetComponent<Weapon>() && other.GetComponentInParent<Player>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) player = other.GetComponentInParent<Player>();
-        base.OnTriggerEnter(other);
+        FindClosestPlayer();
     }
     public virtual void Death() {
         player.souls += soulvalue;
@@ -59,5 +57,26 @@ public class Enemy : Unit
         //Destroy(Instantiate(maskvfx, transform.position, transform.rotation), 1);
         Destroy(gameObject);
         if (spawned) levelManager.enemieskilled += 1; // only adds to the wave's enemy kill count if the enemy was spawned by a spawner.
+    }
+    public override IEnumerator Hit() {
+        isHit = true;
+        yield return new WaitForEndOfFrame();
+        isHit = false;
+    }
+    void FindClosestPlayer() {
+        float closest = 999; float furthest = 0;
+        for (int i = 0; i < players.Length; i++) {
+            var dist = (players[i].transform.position - transform.position).magnitude;
+            if (dist < closest) {
+                closest = dist;
+            }
+            else if (dist > furthest) {
+                furthest = dist;
+            }
+            if ((players[i].transform.position - transform.position).magnitude == closest) {
+                target = players[i].transform;
+                player = players[i];
+            }
+        }
     }
 }

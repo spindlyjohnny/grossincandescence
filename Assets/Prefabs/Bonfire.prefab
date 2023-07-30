@@ -113,6 +113,9 @@ MonoBehaviour:
   buttonprompt: {fileID: 6379321061859753221}
   menu: {fileID: 0}
   player: {fileID: 0}
+  locationtext: {fileID: 0}
+  locationname: 
+  destination: {fileID: 0}
 --- !u!65 &6379321060167974999
 BoxCollider:
   m_ObjectHideFlags: 0
