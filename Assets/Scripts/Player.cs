@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Player : Unit
 {
     public float movespeed = 5f,turnspeed;
-    Vector3 movement;
+    public Vector3 movement;
     LevelManager levelManager;
     public Vector3 respawnpoint;
     public float iframes; // invincibility time
@@ -25,6 +25,7 @@ public class Player : Unit
     public enum Players { P1, P2 }
     public Players player = Players.P1;
     public enum Actions{attack,dodge,block}
+    public CameraController cam;
     // Start is called before the first frame update
     void Start() {
         anim = GetComponent<Animator>();
@@ -48,6 +49,7 @@ public class Player : Unit
         soulcount.text = souls.ToString();
         healcount.text = heals.ToString();
         movement = new Vector3(Input.GetAxis("Horizontal " + player.ToString()), 0, Input.GetAxis("Vertical " + player.ToString()));
+        // set rotation of player while moving.
         Quaternion toRotation = Quaternion.LookRotation(movement.normalized, Vector3.up);
         if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge")) {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnspeed * Time.deltaTime);
@@ -56,7 +58,7 @@ public class Player : Unit
         if (actdodgecooldown <= 0) { // checks if dodge cooldown is 0 or less
             anim.ResetTrigger("Rolling");
             if (Input.GetButtonDown("Dodge " + player.ToString())) {
-                ConsumeStamina(Actions.dodge);
+                ConsumeStamina(Actions.dodge,25f);
             }
         } 
         else {
@@ -74,6 +76,11 @@ public class Player : Unit
     }
     private void FixedUpdate() {
         if (canMove) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
+        float delta = Time.fixedDeltaTime;
+        if(cam != null) {
+            cam.FollowTarget(delta);
+            cam.Rotate(delta);
+        }
     }
     public virtual IEnumerator Death() {
         //dead = true;
