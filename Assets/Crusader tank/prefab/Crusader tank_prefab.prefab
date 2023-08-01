@@ -11647,7 +11647,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   rb: {fileID: 0}
   movespeed: 5
-  turnspeed: 15
+  turnspeed: 720
   respawnpoint: {x: 0, y: 0, z: 0}
   iframes: 0.4
   souls: 0
@@ -11659,6 +11659,7 @@ MonoBehaviour:
   dodgecooldown: 1
   heals: 5
   healcount: {fileID: 0}
+  player: 0
 --- !u!54 &1154641637555395641
 Rigidbody:
   m_ObjectHideFlags: 0

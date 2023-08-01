@@ -20,7 +20,7 @@ public class Bloodstain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (buttonprompt.activeSelf && Input.GetButtonDown("Submit")) {
+        if (buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.ToString())) {
             gameObject.SetActive(false);
             player.souls += souls;
             collected = true;

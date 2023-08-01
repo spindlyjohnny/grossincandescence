@@ -22,6 +22,8 @@ public class Player : Unit
     float actdodgecooldown;
     public int heals;
     public Text healcount;
+    public enum Players { P1, P2 }
+    public Players player = Players.P1;
     public enum Actions{attack,dodge,block}
     // Start is called before the first frame update
     void Start() {
@@ -45,17 +47,22 @@ public class Player : Unit
         anim.SetBool("Death", dead);
         soulcount.text = souls.ToString();
         healcount.text = heals.ToString();
-        movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        if(canMove)transform.Rotate(0, Input.GetAxis("Mouse X") * turnspeed, 0);
-        if (Input.GetButtonDown("Attack")) ConsumeStamina(Actions.attack);
+        movement = new Vector3(Input.GetAxis("Horizontal " + player.ToString()), 0, Input.GetAxis("Vertical " + player.ToString()));
+        Quaternion toRotation = Quaternion.LookRotation(movement.normalized, Vector3.up);
+        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge")) {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnspeed * Time.deltaTime);
+        }
+        if (Input.GetButtonDown("Attack " + player.ToString())) ConsumeStamina(Actions.attack);
         if (actdodgecooldown <= 0) { // checks if dodge cooldown is 0 or less
             anim.ResetTrigger("Rolling");
-            if (Input.GetButtonDown("Dodge")) ConsumeStamina(Actions.dodge);
+            if (Input.GetButtonDown("Dodge " + player.ToString())) {
+                ConsumeStamina(Actions.dodge);
+            }
         } 
         else {
             actdodgecooldown -= Time.deltaTime;
         }
-        if (Input.GetButtonDown("Heal")) {
+        if (Input.GetButtonDown("Heal " + player.ToString())) {
             Heal();
         }
         //if (dead && !bloodstain.GetComponent<Bloodstain>().collected) bloodstain.SetActive(false);
@@ -101,7 +108,7 @@ public class Player : Unit
                 staminaregen = StartCoroutine(StaminaRegen());
                 break;
             case Actions.dodge:
-                Dodge();
+                StartCoroutine(Dodge());
                 stamina -= amt;
                 if (staminaregen != null) StopCoroutine(StaminaRegen());
                 staminaregen = StartCoroutine(StaminaRegen());
@@ -121,11 +128,14 @@ public class Player : Unit
         }
         staminaregen = null;
     }
-    void Dodge() {
+    IEnumerator Dodge() {
         actdodgecooldown = dodgecooldown;
         anim.SetTrigger("Rolling");
-        rb.AddForce(movement * dodgeamt, ForceMode.Force);
+        rb.AddForce(movement.normalized * dodgeamt, ForceMode.Force);
         StartCoroutine(Invincibility());
+        canMove = false;
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        canMove = true;
     }
     void Heal() {
         if (heals == 0) return;
