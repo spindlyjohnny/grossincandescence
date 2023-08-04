@@ -43,3 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8075944acca460e4bb57cd6a177735d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitToRespawn: 0
+  wavecomplete: 0
+  waves: 0
+  enemieskilled: 0
+  totalenemiesinwave: 0
+  currentroom: {fileID: 0}
+  enemyspawns: []
+  ogbloodstaintimer: 30
+  bloodstaintimertext: {fileID: 0}

@@ -1,26 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
     public float waitToRespawn;
-    Player player;
+    Player[] players;
     public bool wavecomplete;
     public int waves;
     public int enemieskilled; // how many enemies have been killed
     public int totalenemiesinwave = 0; // how many enemies spawn in the wave
     public Room currentroom;
     public List<EnemySpawner> enemyspawns;
+    public float ogbloodstaintimer;
+    float bloodstaintimer;
+    public Text bloodstaintimertext;
     // Start is called before the first frame update
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        players = FindObjectsOfType<Player>();
+        bloodstaintimer = ogbloodstaintimer;
+        bloodstaintimertext.transform.parent.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        bloodstaintimertext.text = bloodstaintimer.ToString();
         if (currentroom.roomstart) {
             //PlayerPrefs.SetInt("Current Room", rooms.IndexOf(currentroom));
             if (enemieskilled == totalenemiesinwave) {
@@ -31,6 +38,17 @@ public class LevelManager : MonoBehaviour
                 currentroom.roomstart = false;
                 //AudioManager.instance.PlaySFX(AudioManager.instance.entranceSound);
             }
+        }
+        if(FindObjectOfType<Bloodstain>() != null) {
+            bloodstaintimertext.transform.parent.gameObject.SetActive(true);
+            bloodstaintimer -= Time.deltaTime;
+            if (FindObjectOfType<Bloodstain>().collected) bloodstaintimer = ogbloodstaintimer;
+        }
+        if(bloodstaintimer <= 0) {
+            foreach (var i in players) { 
+                i.hitpoints = 0;
+            }
+            bloodstaintimer = 0;
         }
     }
     public void Respawn() {
@@ -52,10 +70,15 @@ public class LevelManager : MonoBehaviour
     }
     IEnumerator RespawnCo() {
         yield return new WaitForSeconds(0.25f);
-        player.gameObject.SetActive(false); // deactivates player
-        yield return new WaitForSeconds(waitToRespawn); // how long to wait before respawning player
-        player.gameObject.SetActive(true); // reactivates player
-        player.transform.position = player.respawnpoint; // moves player to respawn point
-        player.dead = false;
+        for(int i = 0; i < players.Length; i++) {
+            if (players[i].dead) {
+                players[i].gameObject.SetActive(false); // deactivates player
+                yield return new WaitForSeconds(waitToRespawn); // how long to wait before respawning player
+                players[i].gameObject.SetActive(true); // reactivates player
+                players[i].transform.position = players[i].respawnpoint; // moves player to respawn point
+                players[i].dead = false;
+            }
+        }
+       
     }
 }
