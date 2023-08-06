@@ -156,8 +156,8 @@ GameObject:
   - component: {fileID: 492854}
   - component: {fileID: 3332560}
   - component: {fileID: 2389698}
-  - component: {fileID: 8427313113487773247}
   - component: {fileID: 5654964682417651677}
+  - component: {fileID: 9026244219253644591}
   m_Layer: 0
   m_Name: SWORD
   m_TagString: Untagged
@@ -228,20 +228,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8427313113487773247
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120964}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.15812209
-  m_Height: 3.4135222
-  m_Direction: 2
-  m_Center: {x: 0.010608544, y: -0.00813701, z: 2.1820946}
 --- !u!114 &5654964682417651677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +241,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  hitdist: 1
+  radius: 0
+  offset: {x: 0, y: 0, z: 0}
+--- !u!65 &9026244219253644591
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5581816, y: 1.495602, z: 4.868876}
+  m_Center: {x: 0.0070373625, y: -0.11187259, z: 2.9777398}
 --- !u!1 &125488
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +446,8 @@ MonoBehaviour:
   soulvalue: 25
   player: {fileID: 0}
   isMoving: 0
+  attackrate: 3
+  turnspeed: 15
 --- !u!65 &3784332875758321312
 BoxCollider:
   m_ObjectHideFlags: 0

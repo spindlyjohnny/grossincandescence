@@ -35,12 +35,12 @@ public class Unit : MonoBehaviour
         Physics.IgnoreLayerCollision(3, 6, false);
     }
     public virtual void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Weapon>() && other.GetComponentInParent<Unit>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead) { // take damage if other is a weapon and is an attacking unit
+        if (other.GetComponentInParent<Weapon>() && other.GetComponentInParent<Unit>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead) { // take damage if other is a weapon and is an attacking unit
             Damaged(other);
         }
     }
     protected virtual void Damaged(Collider other) {
-        TakeHit(other.GetComponent<Weapon>().damage);
+        TakeHit(other.GetComponentInParent<Weapon>().damage);
         StartCoroutine(Hit());
     }
 }

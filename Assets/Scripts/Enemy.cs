@@ -15,6 +15,9 @@ public class Enemy : Unit
     public Player player;
     public bool isMoving; //to check if the skeleton is moving
     Player[] players;
+    float nextattacktime;
+    public float attackrate;
+    public float turnspeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +33,7 @@ public class Enemy : Unit
     // Update is called once per frame
     void Update()
     {
+        Vector3 dir = transform.position - target.position;
         SetHealth(hitpoints, maxhitpoints);
         anim.SetBool("Hit", isHit);
         anim.SetBool("Moving", isMoving);
@@ -40,9 +44,14 @@ public class Enemy : Unit
         if (hitpoints <= 0) {
             Death();
         }
-        if((transform.position - target.position).magnitude <= agent.stoppingDistance) {
+        if(dir.magnitude <= agent.stoppingDistance && Time.time >= nextattacktime) {
             anim.SetTrigger("Attack");
+            nextattacktime = Time.time + attackrate;
         }
+        // ensure enemy always faces player.
+        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        //Quaternion desiredRotation = Quaternion.Euler(0, angle, 0);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation,turnspeed * Time.deltaTime);
         FindClosestPlayer();
     }
     public virtual void Death() {
