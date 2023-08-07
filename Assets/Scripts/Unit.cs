@@ -17,6 +17,7 @@ public class Unit : MonoBehaviour
     //public Vector2 knockbackdir;
     public Animator anim;
     public Rigidbody rb;
+    public bool isAttacking;
     // Start is called before the first frame update
     public void TakeHit(float damage) {
         hitpoints -= damage;
@@ -35,7 +36,7 @@ public class Unit : MonoBehaviour
         Physics.IgnoreLayerCollision(3, 6, false);
     }
     public virtual void OnTriggerEnter(Collider other) {
-        if (other.GetComponentInParent<Weapon>() && other.GetComponentInParent<Unit>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead) { // take damage if other is a weapon and is an attacking unit
+        if (other.GetComponentInParent<Weapon>() && other.GetComponentInParent<Unit>().isAttacking && !dead) { // take damage if other is a weapon and is an attacking unit
             Damaged(other);
         }
     }

@@ -46,6 +46,7 @@ public class Enemy : Unit
         }
         if(dir.magnitude <= agent.stoppingDistance && Time.time >= nextattacktime) {
             anim.SetTrigger("Attack");
+            StartCoroutine(ResetAttackBool());
             nextattacktime = Time.time + attackrate;
         }
         // ensure enemy always faces player.
@@ -87,5 +88,10 @@ public class Enemy : Unit
                 player = players[i];
             }
         }
+    }
+    IEnumerator ResetAttackBool() {
+        isAttacking = true;
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        isAttacking = false;
     }
 }

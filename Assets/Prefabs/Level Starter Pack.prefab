@@ -489,6 +489,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3290237091046323987}
     - target: {fileID: 8871675134183934364, guid: 49e5171ff98c9d1438a35a7c96f0abdf, type: 3}
+      propertyPath: gameoverscreen
+      value: 
+      objectReference: {fileID: 7780869325559381008}
+    - target: {fileID: 8871675134183934364, guid: 49e5171ff98c9d1438a35a7c96f0abdf, type: 3}
       propertyPath: bloodstaintimertext
       value: 
       objectReference: {fileID: 7097470730708153590}
@@ -881,6 +885,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7780869325559381008 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6472108751107826380, guid: dc1cdfd343a961a468447c3d98071ed1, type: 3}
+  m_PrefabInstance: {fileID: 3614912701597851356}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2097156683133515118 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3400260700286479282, guid: dc1cdfd343a961a468447c3d98071ed1, type: 3}

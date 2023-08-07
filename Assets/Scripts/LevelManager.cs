@@ -14,8 +14,9 @@ public class LevelManager : MonoBehaviour
     public Room currentroom;
     public List<EnemySpawner> enemyspawns;
     public float ogbloodstaintimer;
-    float bloodstaintimer;
+    public float bloodstaintimer;
     public Text bloodstaintimertext;
+    public GameObject gameoverscreen;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +50,7 @@ public class LevelManager : MonoBehaviour
                 i.hitpoints = 0;
             }
             bloodstaintimer = 0;
+            gameoverscreen.SetActive(true);
         }
     }
     public void Respawn() {
