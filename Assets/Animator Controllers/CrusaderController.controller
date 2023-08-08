@@ -695,7 +695,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: c64ba61c07673a04093afccc2c714aa7, type: 3}
+  m_Motion: {fileID: 7400000, guid: 5142ceb8b83ce0a4e85a2173f9006e7a, type: 2}
   m_Tag: Dodge
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -823,7 +823,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 05302aefa83530c44af2710144385747, type: 3}
+  m_Motion: {fileID: 7400000, guid: 323592cf9497d4049ab04e9ed13b9de5, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
