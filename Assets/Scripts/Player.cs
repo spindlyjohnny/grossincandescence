@@ -27,6 +27,7 @@ public class Player : Unit
     public enum Actions{attack,dodge}
     public CameraController cam;
     public bool isHealing;
+    public GameObject deathvfx;
     // Start is called before the first frame update
     void Start() {
         anim = GetComponent<Animator>();
@@ -77,6 +78,9 @@ public class Player : Unit
             if(!levelManager.gameoverscreen.activeSelf) StartCoroutine(Death());
             hitpoints = maxhitpoints;
         }
+        if (levelManager.gameoverscreen.activeSelf) {
+            Destroy(Instantiate(deathvfx, transform.position, Quaternion.identity), 1);
+        }
     }
     private void FixedUpdate() {
         if (canMove && !isAttacking) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
@@ -89,7 +93,7 @@ public class Player : Unit
     public virtual IEnumerator Death() {
         //dead = true;
         movement = Vector2.zero;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime -1f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime - 1f);
         Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), 1);
         Instantiate(bloodstain, transform.position, transform.rotation);
         bloodstain.GetComponent<Bloodstain>().souls = souls;
