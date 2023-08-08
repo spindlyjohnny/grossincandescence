@@ -11652,6 +11652,7 @@ MonoBehaviour:
   playerNum: 0
   cam: {fileID: 0}
   isHealing: 0
+  deathvfx: {fileID: 9095159680280770442, guid: 78a359822d3d8c747bdcc499b5bdb5c1, type: 3}
 --- !u!54 &1154641637555395641
 Rigidbody:
   m_ObjectHideFlags: 0

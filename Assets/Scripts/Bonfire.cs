@@ -24,7 +24,7 @@ public class Bonfire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.ToString())){
+        if(buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString())){
             menu.SetActive(true);
             Time.timeScale = 0;
             foreach (var i in FindObjectsOfType<Player>()) i.canMove = false;

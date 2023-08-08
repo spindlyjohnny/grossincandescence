@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class LevelManager : MonoBehaviour
         if(bloodstaintimer <= 0) {
             foreach (var i in players) { 
                 i.hitpoints = 0;
+                if (i.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > .7f) i.gameObject.SetActive(false);
             }
             bloodstaintimer = 0;
             gameoverscreen.SetActive(true);
@@ -82,5 +84,8 @@ public class LevelManager : MonoBehaviour
             }
         }
        
+    }
+    public void RestartLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
