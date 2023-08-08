@@ -17335,10 +17335,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Starter Pack
       objectReference: {fileID: 0}
-    - target: {fileID: 7195515594548679382, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
-      propertyPath: ogbloodstaintimer
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7509039537118974058, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

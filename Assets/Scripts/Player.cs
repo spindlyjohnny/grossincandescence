@@ -41,6 +41,7 @@ public class Player : Unit
         canMove = true;
         isHealing = false;
         heals = 5;
+        dead = false;
     }
     // Update is called once per frame
     void Update() {
@@ -77,6 +78,8 @@ public class Player : Unit
             dead = true;
             if(!levelManager.gameoverscreen.activeSelf) StartCoroutine(Death());
             hitpoints = maxhitpoints;
+            Bloodstain bs = FindObjectOfType<Bloodstain>();
+            if (bs) bs.gameObject.SetActive(false);
         }
         if (levelManager.gameoverscreen.activeSelf) {
             Destroy(Instantiate(deathvfx, transform.position, Quaternion.identity), 1);
@@ -91,9 +94,8 @@ public class Player : Unit
         }
     }
     public virtual IEnumerator Death() {
-        //dead = true;
         movement = Vector2.zero;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime - 1f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), 1);
         Instantiate(bloodstain, transform.position, transform.rotation);
         bloodstain.GetComponent<Bloodstain>().souls = souls;
@@ -103,10 +105,12 @@ public class Player : Unit
     }
     public override IEnumerator Hit() {
         if (dead) yield return null;
+        canMove = false;
         isHit = true;
         StartCoroutine(Invincibility());
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         isHit = false;
+        canMove = true;
     }
     IEnumerator Invincibility() {
         Physics.IgnoreLayerCollision(3, 6, true); // disable collision with enemy layer

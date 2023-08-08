@@ -33,17 +33,17 @@ public class CameraController : MonoBehaviour {
         lookangle += (player.movement.x * lookspeed) / delta;
         pivotangle -= (player.movement.y * pivotspeed) / delta;
         pivotangle = Mathf.Clamp(pivotangle, minimumpivot, maximumpivot);
-        //Vector3 rotation = Vector3.zero;
-        //rotation.y = lookangle;
-        //Quaternion targetrotation = Quaternion.Euler(rotation);
-        transform.rotation = Quaternion.Euler(0, lookangle, 0);
-        //transform.rotation = targetrotation;
+        Vector3 rotation = Vector3.zero;
+        rotation.y = lookangle;
+        Quaternion targetrotation = Quaternion.Euler(rotation);
+        //transform.rotation = Quaternion.Euler(0, lookangle, 0);
+        transform.rotation = targetrotation;
 
-        //rotation = Vector3.zero;
-        //rotation.x = pivotangle;
-        //targetrotation = Quaternion.Euler(rotation);
-        camPivotTransform.localRotation = Quaternion.Euler(pivotangle, 0, 0);
-        //camPivotTransform.rotation = targetrotation;
+        rotation = Vector3.zero;
+        rotation.x = pivotangle;
+        targetrotation = Quaternion.Euler(rotation);
+        //camPivotTransform.localRotation = Quaternion.Euler(pivotangle, 0, 0);
+        camPivotTransform.rotation = targetrotation;
     }
     //[Header("Positioning")]
     //public Vector3 positionOffset = new Vector3(0, 1, -3);
