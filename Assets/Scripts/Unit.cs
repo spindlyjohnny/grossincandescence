@@ -11,13 +11,13 @@ public class Unit : MonoBehaviour
     public AudioClip hitsound;
     public GameObject bloodvfx;
     public bool canMove,isHit,dead;
-    //public float knockbackforce;
-    //public float knockbacklength;
-    //public float knockbackcounter;
-    //public Vector2 knockbackdir;
     public Animator anim;
     public Rigidbody rb;
     public bool isAttacking;
+    public float knockbackforce;
+    public float knockbacklength;
+    public float knockbackcounter;
+    public Vector2 knockbackdir;
     // Start is called before the first frame update
     public void TakeHit(float damage) {
         hitpoints -= damage;

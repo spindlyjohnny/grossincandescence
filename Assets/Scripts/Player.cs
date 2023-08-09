@@ -57,7 +57,7 @@ public class Player : Unit
         movement = new Vector3(Input.GetAxis("Horizontal " + playerNum.ToString()), 0, Input.GetAxis("Vertical " + playerNum.ToString()));
         // set rotation of player while moving.
         Quaternion toRotation = Quaternion.LookRotation(movement.normalized, Vector3.up);
-        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge")) {
+        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit) {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnspeed * Time.deltaTime);
         }
         if (Input.GetButtonDown("Attack " + playerNum.ToString())) ConsumeStamina(Actions.attack);
@@ -105,12 +105,10 @@ public class Player : Unit
     }
     public override IEnumerator Hit() {
         if (dead) yield return null;
-        canMove = false;
         isHit = true;
         StartCoroutine(Invincibility());
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         isHit = false;
-        canMove = true;
     }
     IEnumerator Invincibility() {
         Physics.IgnoreLayerCollision(3, 6, true); // disable collision with enemy layer
