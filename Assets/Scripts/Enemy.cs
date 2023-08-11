@@ -5,19 +5,19 @@ using UnityEngine.AI;
 
 public class Enemy : Unit
 {
-    public float damage;
+    //public float damage;
     NavMeshAgent agent;
     public Transform target;
     public Transform spawner;
     public bool spawned;
-    LevelManager levelManager;
+    protected LevelManager levelManager;
     public int soulvalue;
     public Player player;
     public bool isMoving; //to check if the skeleton is moving
     Player[] players;
-    float nextattacktime;
+    protected float nextattacktime;
     public float attackrate;
-    public float turnspeed;
+   // public float turnspeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -89,7 +89,7 @@ public class Enemy : Unit
             }
         }
     }
-    IEnumerator ResetAttackBool() {
+    public IEnumerator ResetAttackBool() {
         isAttacking = true;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         isAttacking = false;
