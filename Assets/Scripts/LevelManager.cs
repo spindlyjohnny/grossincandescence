@@ -44,10 +44,10 @@ public class LevelManager : MonoBehaviour
         if(FindObjectOfType<Bloodstain>() != null) {
             bloodstaintimertext.transform.parent.gameObject.SetActive(true);
             bloodstaintimer -= Time.deltaTime;
-        }
-        if (FindObjectOfType<Bloodstain>(true).collected) {
-            bloodstaintimer = ogbloodstaintimer;
-            bloodstaintimertext.transform.parent.gameObject.SetActive(false);
+            if (FindObjectOfType<Bloodstain>(true).collected) {
+                bloodstaintimer = ogbloodstaintimer;
+                bloodstaintimertext.transform.parent.gameObject.SetActive(false);
+            }
         }
         if (bloodstaintimer <= 0) {
             foreach (var i in players) { 

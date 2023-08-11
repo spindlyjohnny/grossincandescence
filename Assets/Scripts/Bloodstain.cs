@@ -20,7 +20,8 @@ public class Bloodstain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString())) {
+        bool isplayer = Physics.BoxCast(transform.position, new Vector3(0.5f, .5f, .5f), Vector3.up, Quaternion.identity, Mathf.Infinity, LayerMask.GetMask("Player")); // check if there's a player touching bloodstain
+        if (buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString()) && isplayer == player) {
             gameObject.SetActive(false);
             player.souls += souls;
             collected = true;
@@ -36,5 +37,9 @@ public class Bloodstain : MonoBehaviour
         if (other.GetComponent<Player>()) {
             buttonprompt.SetActive(false);
         }
+    }
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, Vector3.one);
     }
 }

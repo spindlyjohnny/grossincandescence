@@ -241,9 +241,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  hitdist: 1
-  radius: 0
-  offset: {x: 0, y: 0, z: 0}
 --- !u!65 &9026244219253644591
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -439,7 +436,11 @@ MonoBehaviour:
   dead: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
-  damage: 1
+  isAttacking: 0
+  knockbackforce: 0
+  knockbacklength: 0
+  knockbackcounter: 0
+  knockbackdir: {x: 0, y: 0}
   target: {fileID: 0}
   spawner: {fileID: 0}
   spawned: 0
@@ -447,7 +448,6 @@ MonoBehaviour:
   player: {fileID: 0}
   isMoving: 0
   attackrate: 3
-  turnspeed: 15
 --- !u!65 &3784332875758321312
 BoxCollider:
   m_ObjectHideFlags: 0

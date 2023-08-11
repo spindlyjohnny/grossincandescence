@@ -93,6 +93,14 @@ public class Player : Unit
             cam.Rotate(delta);
         }
     }
+    public override void OnTriggerEnter(Collider other) {
+        if(other.GetComponent<Weapon>() && other.GetComponentInParent<Enemy>() != null && !dead) {
+            if(other.GetComponentInParent<Enemy>().isAttacking) Damaged(other);
+        }
+        if (other.GetComponent<Projectile>() && !dead) {
+            Damaged(other);
+        }
+    }
     public virtual IEnumerator Death() {
         movement = Vector2.zero;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
@@ -107,7 +115,7 @@ public class Player : Unit
         if (dead) yield return null;
         isHit = true;
         StartCoroutine(Invincibility());
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForEndOfFrame();
         isHit = false;
     }
     IEnumerator Invincibility() {
@@ -144,7 +152,8 @@ public class Player : Unit
     void Dodge() {
         actdodgecooldown = dodgecooldown;
         anim.SetTrigger("Rolling");
-        movement = dodgeamt * movement.normalized;
+        Vector3 dodgedir = movement.normalized;
+        movement = dodgeamt * dodgedir;
         StartCoroutine(Invincibility());
         //canMove = false;
         //yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
