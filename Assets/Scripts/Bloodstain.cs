@@ -20,8 +20,8 @@ public class Bloodstain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isplayer = Physics.BoxCast(transform.position, new Vector3(0.5f, .5f, .5f), Vector3.up, Quaternion.identity, Mathf.Infinity, LayerMask.GetMask("Player")); // check if there's a player touching bloodstain
-        if (buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString()) && isplayer == player) {
+        RaycastHit[] isplayer = Physics.BoxCastAll(transform.position, new Vector3(0.5f, .5f, .5f), Vector3.up, Quaternion.identity, Mathf.Infinity, LayerMask.GetMask("Player")); // check if there's a player touching bloodstain
+        if (buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString()) && isplayer[0].transform.gameObject.GetComponent<Player>() == player) {
             gameObject.SetActive(false);
             player.souls += souls;
             collected = true;

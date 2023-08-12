@@ -13,15 +13,16 @@ public class RangedEnemy : Enemy
         hitpoints = maxhitpoints;
         levelManager = FindObjectOfType<LevelManager>();
         //target = FindObjectOfType<Player>().transform;
-        //transform.parent.GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
+        transform.parent.GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //SetHealth(hitpoints, maxhitpoints);
+        SetHealth(hitpoints, maxhitpoints);
         anim.SetBool("Hit", isHit);
-        //healthbar.gameObject.transform.position = transform.position + new Vector3(0, 2, 0);
+        anim.SetBool("Death", dead);
+        healthbar.gameObject.transform.position = transform.position + new Vector3(0, 2, 0);
         if (hitpoints <= 0) {
             Death();
         }
@@ -31,6 +32,12 @@ public class RangedEnemy : Enemy
         }
     }
     public void Fire() {
-        Instantiate(projectile, firept.position, Quaternion.identity);
+        Destroy(Instantiate(projectile, firept.position, Quaternion.identity), 3f);
+    }
+    public override void OnTriggerEnter(Collider other) {
+        if(other.GetComponentInParent<Weapon>() && other.GetComponentInParent<Player>().isAttacking && !dead) {
+            player = other.GetComponentInParent<Player>();
+            Damaged(other);
+        }
     }
 }

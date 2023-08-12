@@ -23,8 +23,8 @@ public class Projectile : Weapon
     // Update is called once per frame
     void Update()
     {
-        Quaternion desiredrotation = Quaternion.LookRotation(dir);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredrotation, turnspeed * Time.deltaTime);
+        Vector3 rotationamt = Vector3.Cross(transform.forward,dir.normalized);
+        rb.angularVelocity = rotationamt * turnspeed;
     }
     void FindClosestPlayer() {
         float closest = 999; float furthest = 0;

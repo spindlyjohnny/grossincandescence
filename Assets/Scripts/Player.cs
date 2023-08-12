@@ -57,7 +57,7 @@ public class Player : Unit
         movement = new Vector3(Input.GetAxis("Horizontal " + playerNum.ToString()), 0, Input.GetAxis("Vertical " + playerNum.ToString()));
         // set rotation of player while moving.
         Quaternion toRotation = Quaternion.LookRotation(movement.normalized, Vector3.up);
-        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit) {
+        if (movement.magnitude >= .1f && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit && !isHealing) {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnspeed * Time.deltaTime);
         }
         if (Input.GetButtonDown("Attack " + playerNum.ToString())) ConsumeStamina(Actions.attack);

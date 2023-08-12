@@ -57,7 +57,7 @@ public class Enemy : Unit
     }
     public virtual void Death() {
         player.souls += soulvalue;
-        agent.velocity = Vector3.zero;
+        if(agent)agent.velocity = Vector3.zero;
         if (!dead) {
             Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), 1);
             dead = true;
