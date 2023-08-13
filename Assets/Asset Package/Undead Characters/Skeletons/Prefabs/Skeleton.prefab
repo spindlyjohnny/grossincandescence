@@ -436,7 +436,6 @@ MonoBehaviour:
   dead: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
-  isAttacking: 0
   knockbackforce: 0
   knockbacklength: 0
   knockbackcounter: 0
@@ -448,6 +447,7 @@ MonoBehaviour:
   player: {fileID: 0}
   isMoving: 0
   attackrate: 3
+  turnspeed: 0
 --- !u!65 &3784332875758321312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -459,8 +459,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8326526, y: 7.1468797, z: 2.035239}
-  m_Center: {x: -0.05491736, y: 3.073437, z: 0.234944}
+  m_Size: {x: 4.4883976, y: 7.1468797, z: 3.337841}
+  m_Center: {x: -0.04565664, y: 3.073437, z: 0.18043414}
 --- !u!195 &8719147001907657747
 NavMeshAgent:
   m_ObjectHideFlags: 0

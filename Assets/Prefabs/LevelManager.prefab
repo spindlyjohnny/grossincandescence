@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8075944acca460e4bb57cd6a177735d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitToRespawn: 0
+  waitToRespawn: 1
   wavecomplete: 0
   waves: 0
   enemieskilled: 0
@@ -51,4 +51,6 @@ MonoBehaviour:
   currentroom: {fileID: 0}
   enemyspawns: []
   ogbloodstaintimer: 30
+  bloodstaintimer: 0
   bloodstaintimertext: {fileID: 0}
+  gameoverscreen: {fileID: 0}

@@ -28,6 +28,7 @@ public class Player : Unit
     public CameraController cam;
     public bool isHealing;
     public GameObject deathvfx;
+    bool canTurn;
     // Start is called before the first frame update
     void Start() {
         anim = GetComponent<Animator>();
@@ -39,6 +40,7 @@ public class Player : Unit
         staminabar.maxValue = maxstamina;
         stamina = maxstamina;
         canMove = true;
+        canTurn = true;
         isHealing = false;
         heals = 5;
         dead = false;
@@ -55,9 +57,10 @@ public class Player : Unit
         soulcount.text = souls.ToString();
         healcount.text = heals.ToString();
         movement = new Vector3(Input.GetAxis("Horizontal " + playerNum.ToString()), 0, Input.GetAxis("Vertical " + playerNum.ToString()));
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit && !isHealing && !dead) canTurn = true;
         // set rotation of player while moving.
         Quaternion toRotation = Quaternion.LookRotation(movement.normalized, Vector3.up);
-        if (movement.magnitude >= .1f && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit && !isHealing) {
+        if (movement.magnitude >= .1f && canTurn) {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnspeed * Time.deltaTime);
         }
         if (Input.GetButtonDown("Attack " + playerNum.ToString())) ConsumeStamina(Actions.attack);
@@ -86,7 +89,7 @@ public class Player : Unit
         }
     }
     private void FixedUpdate() {
-        if (canMove && !isAttacking) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
+        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
         float delta = Time.fixedDeltaTime;
         if(cam != null) {
             cam.FollowTarget(delta);
@@ -95,7 +98,7 @@ public class Player : Unit
     }
     public override void OnTriggerEnter(Collider other) {
         if(other.GetComponent<Weapon>() && other.GetComponentInParent<Enemy>() != null && !dead) {
-            if(other.GetComponentInParent<Enemy>().isAttacking) Damaged(other);
+            if(other.GetComponentInParent<Enemy>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) Damaged(other);
         }
         if (other.GetComponent<Projectile>() && !dead) {
             Damaged(other);
@@ -128,7 +131,6 @@ public class Player : Unit
         switch (action) {
             case Actions.attack:
                 anim.SetTrigger("Attack");
-                StartCoroutine(ResetAttackBool());
                 stamina -= amt;
                 if (staminaregen != null) StopCoroutine(StaminaRegen()); // restart coroutine
                 staminaregen = StartCoroutine(StaminaRegen());
@@ -167,10 +169,5 @@ public class Player : Unit
         if (hitpoints > maxhitpoints) hitpoints = maxhitpoints;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         isHealing = false;
-    }
-    IEnumerator ResetAttackBool() {
-        isAttacking = true;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        isAttacking = false;
     }
 }

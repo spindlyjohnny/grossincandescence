@@ -18,6 +18,7 @@ public class Enemy : Unit
     protected float nextattacktime;
     public float attackrate;
    // public float turnspeed;
+    public float turnspeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,33 +40,29 @@ public class Enemy : Unit
         anim.SetBool("Moving", isMoving);
         agent.SetDestination(target.position); // follow player
         healthbar.gameObject.transform.position = transform.position + new Vector3(0, 2, 0);
-        if (agent.hasPath)isMoving = true;
+        if (agent.hasPath && dir.magnitude > agent.stoppingDistance)isMoving = true;
         else isMoving = false;
         if (hitpoints <= 0) {
-            Death();
+            StartCoroutine(Death());
         }
         if(dir.magnitude <= agent.stoppingDistance && Time.time >= nextattacktime) {
             anim.SetTrigger("Attack");
-            StartCoroutine(ResetAttackBool());
             nextattacktime = Time.time + attackrate;
         }
         // ensure enemy always faces player.
-        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        //Quaternion desiredRotation = Quaternion.Euler(0, angle, 0);
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation,turnspeed * Time.deltaTime);
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Quaternion desiredRotation = Quaternion.Euler(0, angle, 0);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
         FindClosestPlayer();
     }
-    public virtual void Death() {
-        player.souls += soulvalue;
+    public virtual IEnumerator Death() {
         if(agent)agent.velocity = Vector3.zero;
-        if (!dead) {
-            Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), 1);
-            dead = true;
-        }
+        if (!dead) dead = true;
         healthbar.gameObject.SetActive(false);
-        //yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
-        //Destroy(Instantiate(maskvfx, transform.position, transform.rotation), 1);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), 1);
         Destroy(gameObject);
+        player.souls += soulvalue;
         if (spawned) levelManager.enemieskilled += 1; // only adds to the wave's enemy kill count if the enemy was spawned by a spawner.
     }
     public override IEnumerator Hit() {
@@ -89,9 +86,10 @@ public class Enemy : Unit
             }
         }
     }
-    public IEnumerator ResetAttackBool() {
-        isAttacking = true;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        isAttacking = false;
+    bool ContainsParam(string paramname) {
+        foreach (var param in anim.parameters) {
+            if (param.name == paramname) return true;
+        }
+        return false;
     }
 }

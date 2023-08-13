@@ -24,7 +24,7 @@ public class RangedEnemy : Enemy
         anim.SetBool("Death", dead);
         healthbar.gameObject.transform.position = transform.position + new Vector3(0, 2, 0);
         if (hitpoints <= 0) {
-            Death();
+            StartCoroutine(Death());
         }
         if (Time.time >= nextattacktime) {
             anim.SetTrigger("Attack");
@@ -35,7 +35,7 @@ public class RangedEnemy : Enemy
         Destroy(Instantiate(projectile, firept.position, Quaternion.identity), 3f);
     }
     public override void OnTriggerEnter(Collider other) {
-        if(other.GetComponentInParent<Weapon>() && other.GetComponentInParent<Player>().isAttacking && !dead) {
+        if(other.GetComponentInParent<Weapon>() && other.GetComponentInParent<Player>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead) {
             player = other.GetComponentInParent<Player>();
             Damaged(other);
         }
