@@ -17,7 +17,6 @@ public class Enemy : Unit
     Player[] players;
     protected float nextattacktime;
     public float attackrate;
-   // public float turnspeed;
     public float turnspeed;
     // Start is called before the first frame update
     void Start()
@@ -38,6 +37,7 @@ public class Enemy : Unit
         SetHealth(hitpoints, maxhitpoints);
         anim.SetBool("Hit", isHit);
         anim.SetBool("Moving", isMoving);
+        if(ContainsParam("Death")) anim.SetBool("Death", dead);
         agent.SetDestination(target.position); // follow player
         healthbar.gameObject.transform.position = transform.position + new Vector3(0, 2, 0);
         if (agent.hasPath && dir.magnitude > agent.stoppingDistance)isMoving = true;
