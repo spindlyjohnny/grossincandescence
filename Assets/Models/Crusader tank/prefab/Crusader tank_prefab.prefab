@@ -11634,7 +11634,6 @@ MonoBehaviour:
   dead: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
-  isAttacking: 0
   knockbackforce: 0
   knockbacklength: 0
   knockbackcounter: 0

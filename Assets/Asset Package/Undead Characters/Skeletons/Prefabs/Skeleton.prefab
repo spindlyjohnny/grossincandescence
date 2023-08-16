@@ -446,8 +446,8 @@ MonoBehaviour:
   soulvalue: 25
   player: {fileID: 0}
   isMoving: 0
-  attackrate: 3
-  turnspeed: 0
+  attackrate: 1.5
+  turnspeed: 30
 --- !u!65 &3784332875758321312
 BoxCollider:
   m_ObjectHideFlags: 0

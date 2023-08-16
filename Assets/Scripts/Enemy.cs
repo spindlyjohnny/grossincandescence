@@ -18,6 +18,7 @@ public class Enemy : Unit
     protected float nextattacktime;
     public float attackrate;
     public float turnspeed;
+    protected Vector3 dir;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,12 +34,12 @@ public class Enemy : Unit
     // Update is called once per frame
     void Update()
     {
-        Vector3 dir = transform.position - target.position;
+        dir = transform.position - target.position;
         SetHealth(hitpoints, maxhitpoints);
         anim.SetBool("Hit", isHit);
         anim.SetBool("Moving", isMoving);
         if(ContainsParam("Death")) anim.SetBool("Death", dead);
-        agent.SetDestination(target.position); // follow player
+        if(canMove)agent.SetDestination(target.position); // follow player
         healthbar.gameObject.transform.position = transform.position + new Vector3(0, 2, 0);
         if (agent.hasPath && dir.magnitude > agent.stoppingDistance)isMoving = true;
         else isMoving = false;
@@ -50,16 +51,14 @@ public class Enemy : Unit
             nextattacktime = Time.time + attackrate;
         }
         // ensure enemy always faces player.
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        Quaternion desiredRotation = Quaternion.Euler(0, angle, 0);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
+        FacePlayer();
         FindClosestPlayer();
     }
     public virtual IEnumerator Death() {
         if(agent)agent.velocity = Vector3.zero;
         if (!dead) dead = true;
         healthbar.gameObject.SetActive(false);
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), 1);
         Destroy(gameObject);
         player.souls += soulvalue;
@@ -91,5 +90,11 @@ public class Enemy : Unit
             if (param.name == paramname) return true;
         }
         return false;
+    }
+    protected virtual void FacePlayer() {
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Quaternion desiredRotation = Quaternion.Euler(0, angle, 0);
+        float dotprod = Vector3.Dot(dir.normalized, transform.forward);
+        if (dotprod > 0) transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
     }
 }

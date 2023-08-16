@@ -57,7 +57,7 @@ public class Player : Unit
         soulcount.text = souls.ToString();
         healcount.text = heals.ToString();
         movement = new Vector3(Input.GetAxis("Horizontal " + playerNum.ToString()), 0, Input.GetAxis("Vertical " + playerNum.ToString()));
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit && !isHealing && !dead) canTurn = true;
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit && !isHealing && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) canTurn = true;
         // set rotation of player while moving.
         Quaternion toRotation = Quaternion.LookRotation(movement.normalized, Vector3.up);
         if (movement.magnitude >= .1f && canTurn) {
@@ -165,9 +165,9 @@ public class Player : Unit
         if (heals == 0) yield return null;
         isHealing = true;
         heals -= 1;
-        hitpoints += maxhitpoints * .25f;
-        if (hitpoints > maxhitpoints) hitpoints = maxhitpoints;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         isHealing = false;
+        hitpoints += maxhitpoints * .25f;
+        if (hitpoints > maxhitpoints) hitpoints = maxhitpoints;
     }
 }
