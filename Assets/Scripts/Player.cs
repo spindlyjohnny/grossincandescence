@@ -29,6 +29,7 @@ public class Player : Unit
     public bool isHealing;
     public GameObject deathvfx;
     bool canTurn;
+    public AudioClip[] hitsounds;
     // Start is called before the first frame update
     void Start() {
         anim = GetComponent<Animator>();
@@ -75,6 +76,7 @@ public class Player : Unit
         }
         if (Input.GetButtonDown("Heal " + playerNum.ToString())) {
             StartCoroutine(Heal());
+            AudioManager.instance.PlaySFX(deathsound);
         }
         //if (dead && !bloodstain.GetComponent<Bloodstain>().collected) bloodstain.SetActive(false);
         if (hitpoints <= 0) {
@@ -107,16 +109,17 @@ public class Player : Unit
     public virtual IEnumerator Death() {
         movement = Vector2.zero;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), 1);
-        Instantiate(bloodstain, transform.position, transform.rotation);
-        bloodstain.GetComponent<Bloodstain>().souls = souls;
-        bloodstain.GetComponent<Bloodstain>().collected = false;
+        Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), bloodvfx.GetComponent<AudioSource>().clip.length);
+        Bloodstain bs = Instantiate(bloodstain, transform.position, transform.rotation).GetComponent<Bloodstain>();
+        bs.souls = souls;
+        bs.collected = false;
         souls = 0;
         if(levelManager.bloodstaintimer != 0)levelManager.Respawn();
     }
     public override IEnumerator Hit() {
         if (dead) yield return null;
         isHit = true;
+        AudioManager.instance.PlaySFX(hitsounds[Random.Range(0,hitsounds.Length)]);
         StartCoroutine(Invincibility());
         yield return new WaitForEndOfFrame();
         isHit = false;

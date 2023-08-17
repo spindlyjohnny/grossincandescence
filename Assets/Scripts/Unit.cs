@@ -8,15 +8,15 @@ public class Unit : MonoBehaviour
     public float hitpoints;
     public float maxhitpoints;
     public Slider healthbar;
-    public AudioClip hitsound;
+    public AudioClip hitsound,deathsound;
     public GameObject bloodvfx;
     public bool canMove,isHit,dead;
     public Animator anim;
     public Rigidbody rb;
-    public float knockbackforce;
-    public float knockbacklength;
-    public float knockbackcounter;
-    public Vector2 knockbackdir;
+    //public float knockbackforce;
+    //public float knockbacklength;
+    //public float knockbackcounter;
+    //public Vector2 knockbackdir;
     // Start is called before the first frame update
     public void TakeHit(float damage) {
         hitpoints -= damage;
@@ -42,5 +42,8 @@ public class Unit : MonoBehaviour
     protected virtual void Damaged(Collider other) {
         TakeHit(other.GetComponentInParent<Weapon>().damage);
         StartCoroutine(Hit());
+    }
+    public void PlayDeathSound() {
+        AudioManager.instance.PlaySFX(deathsound);
     }
 }

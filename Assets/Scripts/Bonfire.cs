@@ -36,7 +36,7 @@ public class Bonfire : MonoBehaviour
         locationtext.text = locationname;
     }
     private void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Player>()) {
+        if (other.GetComponent<Player>() && !other.GetComponent<Bloodstain>()) {
             player = other.GetComponent<Player>(); // store reference to deduct souls from correct player
             buttonprompt.SetActive(true);
         }
@@ -52,6 +52,7 @@ public class Bonfire : MonoBehaviour
         foreach (var i in FindObjectsOfType<Player>()) i.canMove = true;
     }
     public void StartWave() {
+        if (levelManager.waves == 0) return;
         foreach (var i in levelManager.enemyspawns) {
             i.canSpawn = true;
         }

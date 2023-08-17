@@ -35,7 +35,7 @@ public class RangedEnemy : Enemy
             nextattacktime = Time.time + attackrate;
         }
         Collider[] players = Physics.OverlapSphere(transform.position,detectionradius,LayerMask.GetMask("Player"));
-        player = players[0].GetComponent<Player>();
+        if(players[0] != null)player = players[0].GetComponent<Player>();
         dir = transform.position - player.transform.position;
         FacePlayer();
     }
@@ -44,13 +44,14 @@ public class RangedEnemy : Enemy
     }
     private void FixedUpdate() {
         if (player != null && dir.magnitude < detectionradius && dir.magnitude > 1f) {
-            if(canMove)rb.MovePosition(rb.position + movespeed * Time.deltaTime * (dir + 2 * player.transform.position).normalized);
+            canMove = true;
             isMoving = true;
         } 
         else { 
             isMoving = false;
             canMove = false;
         }
+        if (canMove) rb.MovePosition(rb.position + movespeed * Time.deltaTime * (dir + 2 * player.transform.position).normalized);
     }
     public override IEnumerator Death() {
         if (!dead) dead = true;

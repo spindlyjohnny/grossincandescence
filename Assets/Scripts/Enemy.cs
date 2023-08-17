@@ -59,13 +59,14 @@ public class Enemy : Unit
         if (!dead) dead = true;
         healthbar.gameObject.SetActive(false);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), 1);
+        Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), bloodvfx.GetComponent<AudioSource>().clip.length);
         Destroy(gameObject);
         player.souls += soulvalue;
         if (spawned) levelManager.enemieskilled += 1; // only adds to the wave's enemy kill count if the enemy was spawned by a spawner.
     }
     public override IEnumerator Hit() {
         isHit = true;
+        AudioManager.instance.PlaySFX(hitsound);
         yield return new WaitForEndOfFrame();
         isHit = false;
     }
@@ -95,6 +96,6 @@ public class Enemy : Unit
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion desiredRotation = Quaternion.Euler(0, angle, 0);
         float dotprod = Vector3.Dot(dir.normalized, transform.forward);
-        if (dotprod > 0) transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
+        if (dotprod < 0) transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
     }
 }

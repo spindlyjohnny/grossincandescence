@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
         bloodstaintimertext.text = bloodstaintimer.ToString();
         if (currentroom.roomstart) {
             //PlayerPrefs.SetInt("Current Room", rooms.IndexOf(currentroom));
-            if (enemieskilled == totalenemiesinwave) {
+            if (enemieskilled >= totalenemiesinwave) {
                 wavecomplete = true;
                 EndOfWave();
             }

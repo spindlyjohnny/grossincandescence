@@ -429,17 +429,15 @@ MonoBehaviour:
   hitpoints: 0
   maxhitpoints: 3
   healthbar: {fileID: 0}
-  hitsound: {fileID: 0}
+  hitsound: {fileID: 8300000, guid: c38e1ec34535cd747af049888e6d1326, type: 3}
+  deathsound: {fileID: 8300000, guid: 82cecd0391d490147ad179c1d857d6a4, type: 3}
+  deathvfxsound: {fileID: 8300000, guid: c8510cb0248118848b338e3a1e2add55, type: 3}
   bloodvfx: {fileID: 2128197530583651286, guid: 1998c0256ee69b94e8e74f3b7cd987ec, type: 3}
   canMove: 0
   isHit: 0
   dead: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
-  knockbackforce: 0
-  knockbacklength: 0
-  knockbackcounter: 0
-  knockbackdir: {x: 0, y: 0}
   target: {fileID: 0}
   spawner: {fileID: 0}
   spawned: 0
@@ -447,7 +445,7 @@ MonoBehaviour:
   player: {fileID: 0}
   isMoving: 0
   attackrate: 1.5
-  turnspeed: 30
+  turnspeed: 180
 --- !u!65 &3784332875758321312
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -11628,16 +11628,14 @@ MonoBehaviour:
   maxhitpoints: 10
   healthbar: {fileID: 0}
   hitsound: {fileID: 0}
+  deathsound: {fileID: 0}
+  bloodsound: {fileID: 0}
   bloodvfx: {fileID: 2128197530583651286, guid: 1998c0256ee69b94e8e74f3b7cd987ec, type: 3}
   canMove: 0
   isHit: 0
   dead: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
-  knockbackforce: 0
-  knockbacklength: 0
-  knockbackcounter: 0
-  knockbackdir: {x: 0, y: 0}
   movespeed: 5
   turnspeed: 720
   movement: {x: 0, y: 0, z: 0}
@@ -11656,6 +11654,11 @@ MonoBehaviour:
   cam: {fileID: 0}
   isHealing: 0
   deathvfx: {fileID: 9095159680280770442, guid: 78a359822d3d8c747bdcc499b5bdb5c1, type: 3}
+  hitsounds:
+  - {fileID: 8300000, guid: ecd4edbdb58a99c4bbc941789dac26c0, type: 3}
+  - {fileID: 8300000, guid: a2763c48473c5cc4682cc64b7cd77fa0, type: 3}
+  - {fileID: 8300000, guid: 269708bb607e68244a837fb308a32714, type: 3}
+  - {fileID: 8300000, guid: dafdb6a265238ac45974b66ba95d4eb1, type: 3}
 --- !u!54 &1154641637555395641
 Rigidbody:
   m_ObjectHideFlags: 0
