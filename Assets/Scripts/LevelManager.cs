@@ -76,7 +76,7 @@ public class LevelManager : MonoBehaviour
         foreach (var i in FindObjectsOfType<Bonfire>(true)) i.gameObject.SetActive(true);
     }
     IEnumerator RespawnCo() {
-        yield return new WaitForSeconds(0.25f);
+        //yield return new WaitForSeconds(0.25f);
         for(int i = 0; i < players.Length; i++) {
             if (players[i].dead) {
                 players[i].gameObject.SetActive(false); // deactivates player

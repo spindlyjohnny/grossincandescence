@@ -2,30 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Bonfire : MonoBehaviour
 {
     public GameObject buttonprompt;
-    public GameObject menu;
+    public GameObject menu,defaultButton;
     public Player player;
     public Text locationtext;
     public string locationname;
     LevelManager levelManager;
     public Transform destination;
+    public AudioClip bonfiresound;
     // Start is called before the first frame update
     void Start()
     {
         buttonprompt.SetActive(false);
         GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
         levelManager = FindObjectOfType<LevelManager>();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString())){
+        if(buttonprompt.activeSelf && Input.GetButtonDown("Submit"/* + player.playerNum.ToString()*/)){
+            buttonprompt.SetActive(false);
+            AudioManager.instance.PlaySFX(bonfiresound);
             menu.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(defaultButton);
             Time.timeScale = 0;
             foreach (var i in FindObjectsOfType<Player>()) i.canMove = false;
             if (player) {
@@ -69,5 +75,6 @@ public class Bonfire : MonoBehaviour
             i.transform.position = destination.position;
             //FindObjectOfType<CameraController>().smoothing = FindObjectOfType<CameraController>().ogsmoothing;
         }
+        AudioManager.instance.PlaySFX(AudioManager.instance.eventsound);
     }
 }

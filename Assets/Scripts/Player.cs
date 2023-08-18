@@ -30,6 +30,7 @@ public class Player : Unit
     public GameObject deathvfx;
     bool canTurn;
     public AudioClip[] hitsounds;
+    public AudioClip healsound,dodgesound;
     // Start is called before the first frame update
     void Start() {
         anim = GetComponent<Animator>();
@@ -50,8 +51,7 @@ public class Player : Unit
     void Update() {
         SetHealth(hitpoints, maxhitpoints);
         staminabar.value = stamina;
-        anim.SetFloat("moveX", movement.x);
-        anim.SetFloat("moveY", movement.z);
+        if(canMove)anim.SetFloat("moveX", movement.x);anim.SetFloat("moveY", movement.z);
         anim.SetBool("Hit", isHit);
         anim.SetBool("Death", dead);
         anim.SetBool("Heal", isHealing);
@@ -76,7 +76,6 @@ public class Player : Unit
         }
         if (Input.GetButtonDown("Heal " + playerNum.ToString())) {
             StartCoroutine(Heal());
-            AudioManager.instance.PlaySFX(deathsound);
         }
         //if (dead && !bloodstain.GetComponent<Bloodstain>().collected) bloodstain.SetActive(false);
         if (hitpoints <= 0) {
@@ -120,7 +119,7 @@ public class Player : Unit
         if (dead) yield return null;
         isHit = true;
         AudioManager.instance.PlaySFX(hitsounds[Random.Range(0,hitsounds.Length)]);
-        StartCoroutine(Invincibility());
+        //StartCoroutine(Invincibility());
         yield return new WaitForEndOfFrame();
         isHit = false;
     }
@@ -164,6 +163,9 @@ public class Player : Unit
         //yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         //canMove = true;
     }
+    public void PlayDodgeSound() {
+        AudioManager.instance.PlaySFX(dodgesound);
+    }
     IEnumerator Heal() {
         if (heals == 0) yield return null;
         isHealing = true;
@@ -172,5 +174,8 @@ public class Player : Unit
         isHealing = false;
         hitpoints += maxhitpoints * .25f;
         if (hitpoints > maxhitpoints) hitpoints = maxhitpoints;
+    }
+    public void PlayHealSound() {
+        AudioManager.instance.PlaySFX(healsound);
     }
 }

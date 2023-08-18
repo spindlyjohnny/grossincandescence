@@ -174,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxaudio: {fileID: 2335658992690966061}
   musicaudio: {fileID: 2335658993369902020}
-  deathvfxsound: {fileID: 8300000, guid: c8510cb0248118848b338e3a1e2add55, type: 3}
+  eventsound: {fileID: 8300000, guid: 1134ed9dbb90c6348a4135f9fd54e5d5, type: 3}
 --- !u!82 &2335658993369902020
 AudioSource:
   m_ObjectHideFlags: 0

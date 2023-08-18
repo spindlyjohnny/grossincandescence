@@ -94,8 +94,9 @@ public class Enemy : Unit
     }
     protected virtual void FacePlayer() {
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        //float dotprod = Vector3.Dot(dir.normalized, transform.forward);
         Quaternion desiredRotation = Quaternion.Euler(0, angle, 0);
-        float dotprod = Vector3.Dot(dir.normalized, transform.forward);
-        if (dotprod < 0) transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
+        /*if (dotprod < 0)*/
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
     }
 }

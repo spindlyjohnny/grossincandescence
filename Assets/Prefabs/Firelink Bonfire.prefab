@@ -116,6 +116,7 @@ MonoBehaviour:
   locationtext: {fileID: 0}
   locationname: Firelink Shrine
   destination: {fileID: 0}
+  bonfiresound: {fileID: 8300000, guid: 2e61854f2419e1b429e20b3446d4256b, type: 3}
 --- !u!65 &6379321060167974999
 BoxCollider:
   m_ObjectHideFlags: 0

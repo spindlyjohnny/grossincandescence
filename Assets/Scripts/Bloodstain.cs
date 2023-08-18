@@ -25,6 +25,7 @@ public class Bloodstain : MonoBehaviour
             gameObject.SetActive(false);
             player.souls += souls;
             collected = true;
+            AudioManager.instance.PlaySFX(AudioManager.instance.eventsound);
         }
     }
     private void OnTriggerEnter(Collider other) {

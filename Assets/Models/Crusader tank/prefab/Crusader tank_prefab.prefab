@@ -11628,8 +11628,7 @@ MonoBehaviour:
   maxhitpoints: 10
   healthbar: {fileID: 0}
   hitsound: {fileID: 0}
-  deathsound: {fileID: 0}
-  bloodsound: {fileID: 0}
+  deathsound: {fileID: 8300000, guid: 69f69ff3f1131884e8d8eb37e3bf9101, type: 3}
   bloodvfx: {fileID: 2128197530583651286, guid: 1998c0256ee69b94e8e74f3b7cd987ec, type: 3}
   canMove: 0
   isHit: 0
@@ -11659,6 +11658,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a2763c48473c5cc4682cc64b7cd77fa0, type: 3}
   - {fileID: 8300000, guid: 269708bb607e68244a837fb308a32714, type: 3}
   - {fileID: 8300000, guid: dafdb6a265238ac45974b66ba95d4eb1, type: 3}
+  healsound: {fileID: 8300000, guid: 0d26f47cfda57db4cb5e84843b1cd37b, type: 3}
+  attacksound: {fileID: 8300000, guid: 4588e1e0d17f95c4ea07479b25c7e765, type: 3}
+  dodgesound: {fileID: 8300000, guid: 4fe63cc9bafad814e9920a42c8fc0164, type: 3}
 --- !u!54 &1154641637555395641
 Rigidbody:
   m_ObjectHideFlags: 0
