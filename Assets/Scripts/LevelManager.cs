@@ -52,9 +52,9 @@ public class LevelManager : MonoBehaviour
         if (bloodstaintimer <= 0) {
             foreach (var i in players) { 
                 i.hitpoints = 0;
-                if (i.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > .7f) i.gameObject.SetActive(false);
+                StartCoroutine(i.TrueDeath());
             }
-            bloodstaintimer = 0;
+            bloodstaintimer = ogbloodstaintimer;
             gameoverscreen.SetActive(true);
         }
     }

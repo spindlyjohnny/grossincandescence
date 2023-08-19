@@ -20,13 +20,13 @@ public class Bonfire : MonoBehaviour
         buttonprompt.SetActive(false);
         GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
         levelManager = FindObjectOfType<LevelManager>();
-        //gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(buttonprompt.activeSelf && Input.GetButtonDown("Submit"/* + player.playerNum.ToString()*/)){
+        if(buttonprompt.activeSelf && Input.GetButtonDown("Submit")){
             buttonprompt.SetActive(false);
             AudioManager.instance.PlaySFX(bonfiresound);
             menu.SetActive(true);

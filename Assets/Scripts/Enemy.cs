@@ -34,6 +34,7 @@ public class Enemy : Unit
     // Update is called once per frame
     void Update()
     {
+        if (levelManager.gameoverscreen.activeSelf) return;
         dir = transform.position - target.position;
         SetHealth(hitpoints, maxhitpoints);
         anim.SetBool("Hit", isHit);
@@ -93,10 +94,7 @@ public class Enemy : Unit
         return false;
     }
     protected virtual void FacePlayer() {
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        //float dotprod = Vector3.Dot(dir.normalized, transform.forward);
-        Quaternion desiredRotation = Quaternion.Euler(0, angle, 0);
-        /*if (dotprod < 0)*/
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
+        Quaternion lookRotation = Quaternion.LookRotation(-(dir));
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnspeed * Time.deltaTime);
     }
 }

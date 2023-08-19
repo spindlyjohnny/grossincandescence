@@ -8,6 +8,7 @@ public class RangedEnemy : Enemy
     public Transform firept;
     public float detectionradius;
     public float movespeed;
+    public AudioClip spellsound;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class RangedEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
+        if (levelManager.gameoverscreen.activeSelf) return;
         SetHealth(hitpoints, maxhitpoints);
         anim.SetBool("Hit", isHit);
         anim.SetBool("Death", dead);
@@ -35,12 +37,13 @@ public class RangedEnemy : Enemy
             nextattacktime = Time.time + attackrate;
         }
         Collider[] players = Physics.OverlapSphere(transform.position,detectionradius,LayerMask.GetMask("Player"));
-        if(players[0] != null)player = players[0].GetComponent<Player>();
+        if(players.Length > 0)player = players[0].GetComponent<Player>();
         dir = transform.position - player.transform.position;
         FacePlayer();
     }
     public void Fire() {
-        Destroy(Instantiate(projectile, firept.position, Quaternion.identity), 3f);
+        Destroy(Instantiate(projectile, firept.position,transform.rotation), 3f);
+        AudioManager.instance.PlaySFX(spellsound);
     }
     private void FixedUpdate() {
         if (player != null && dir.magnitude < detectionradius && dir.magnitude > 1f) {
@@ -65,11 +68,5 @@ public class RangedEnemy : Enemy
     }
     private void OnDrawGizmosSelected() {
         Gizmos.DrawWireSphere(transform.position,detectionradius);
-    }
-    protected override void FacePlayer() {
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        Quaternion desiredRotation = Quaternion.Euler(0, angle, 0);
-        float dotprod = Vector3.Dot(dir.normalized, transform.forward);
-        if (dotprod < 0) transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnspeed * Time.deltaTime);
     }
 }

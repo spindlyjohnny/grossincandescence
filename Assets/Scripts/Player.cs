@@ -105,7 +105,7 @@ public class Player : Unit
             Damaged(other);
         }
     }
-    public virtual IEnumerator Death() {
+    public IEnumerator Death() {
         movement = Vector2.zero;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), bloodvfx.GetComponent<AudioSource>().clip.length);
@@ -114,6 +114,13 @@ public class Player : Unit
         bs.collected = false;
         souls = 0;
         if(levelManager.bloodstaintimer != 0)levelManager.Respawn();
+    }
+    public IEnumerator TrueDeath() {
+        movement = Vector2.zero;
+        Destroy(Instantiate(deathvfx, transform.position, transform.rotation), 5f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        souls = 0;
+        gameObject.SetActive(false);
     }
     public override IEnumerator Hit() {
         if (dead) yield return null;

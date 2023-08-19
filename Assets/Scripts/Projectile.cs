@@ -25,6 +25,8 @@ public class Projectile : Weapon
     {
         Vector3 rotationamt = Vector3.Cross(transform.forward,dir.normalized);
         rb.angularVelocity = rotationamt * turnspeed;
+        //float angle = Mathf.Atan2(dir.z, dir.x);
+        //transform.rotation = Quaternion.Euler(0, angle, 0);
     }
     void FindClosestPlayer() {
         float closest = 999; float furthest = 0;

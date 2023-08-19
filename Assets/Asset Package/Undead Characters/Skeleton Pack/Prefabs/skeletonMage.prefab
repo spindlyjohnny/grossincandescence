@@ -726,7 +726,6 @@ MonoBehaviour:
   healthbar: {fileID: 0}
   hitsound: {fileID: 8300000, guid: c38e1ec34535cd747af049888e6d1326, type: 3}
   deathsound: {fileID: 8300000, guid: 82cecd0391d490147ad179c1d857d6a4, type: 3}
-  deathvfxsound: {fileID: 8300000, guid: c8510cb0248118848b338e3a1e2add55, type: 3}
   bloodvfx: {fileID: 2128197530583651286, guid: 1998c0256ee69b94e8e74f3b7cd987ec, type: 3}
   canMove: 0
   isHit: 0
@@ -745,6 +744,7 @@ MonoBehaviour:
   firept: {fileID: 4894906551214390856}
   detectionradius: 3
   movespeed: 3.5
+  spellsound: {fileID: 8300000, guid: 4e79b562c436e9c489ca798fe5138af7, type: 3}
 --- !u!54 &7242759128174917491
 Rigidbody:
   m_ObjectHideFlags: 0
