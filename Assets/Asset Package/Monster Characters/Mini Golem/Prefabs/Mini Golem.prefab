@@ -84,7 +84,6 @@ MonoBehaviour:
   healthbar: {fileID: 0}
   hitsound: {fileID: 8300000, guid: 8978837f830778647969365f25406e60, type: 3}
   deathsound: {fileID: 8300000, guid: f17d7429942a98047b40b2c0dfd88b6c, type: 3}
-  deathvfxsound: {fileID: 8300000, guid: c8510cb0248118848b338e3a1e2add55, type: 3}
   bloodvfx: {fileID: 2128197530583651286, guid: 1998c0256ee69b94e8e74f3b7cd987ec, type: 3}
   canMove: 0
   isHit: 0
@@ -603,7 +602,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 43812fafc132958469529f47747d0cc3, type: 2}
+  - {fileID: 2100000, guid: 95da383acc4fab643815722d76939575, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
