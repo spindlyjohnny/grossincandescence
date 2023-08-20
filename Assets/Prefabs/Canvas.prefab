@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 7079006155913573271}
   - component: {fileID: 1328922778205196287}
   - component: {fileID: 510894429775723450}
+  - component: {fileID: 1646989943200367211}
   m_Layer: 5
-  m_Name: Upgrade 2
+  m_Name: Increase Damage 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,9 +35,9 @@ RectTransform:
   m_Father: {fileID: 8808752638323825900}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 280, y: -275}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7079006155913573271
@@ -120,7 +121,33 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5880335043295797274}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1646989943200367211}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: IncreaseDamage
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1646989943200367211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196708900100163639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f35ed2f09c2a4f817b91aeae83e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 150
+  namestring: 'Increase Damage - '
 --- !u!1 &253216511794217600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,7 +1565,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2898623975704269322}
   m_HandleRect: {fileID: 4343227254961339508}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.9999999
   m_Size: 0.42602497
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4017,8 +4044,9 @@ GameObject:
   - component: {fileID: 9065486287121849096}
   - component: {fileID: 5880335043295797274}
   - component: {fileID: 5792041961800947047}
+  - component: {fileID: 1096188185613749720}
   m_Layer: 5
-  m_Name: Upgrade 1
+  m_Name: Increase Health 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4039,9 +4067,9 @@ RectTransform:
   m_Father: {fileID: 8808752638323825900}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 280, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9065486287121849096
@@ -4125,7 +4153,33 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5880335043295797274}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1096188185613749720}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: IncreaseHealth
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1096188185613749720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541955093028604781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f35ed2f09c2a4f817b91aeae83e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 50
+  namestring: 'Increase Health - '
 --- !u!1 &4573807738579966813
 GameObject:
   m_ObjectHideFlags: 0
@@ -5606,8 +5660,9 @@ GameObject:
   - component: {fileID: 3621596215517756736}
   - component: {fileID: 6063668877845616934}
   - component: {fileID: 2884615188784823452}
+  - component: {fileID: 3760614985965756522}
   m_Layer: 5
-  m_Name: Upgrade 4
+  m_Name: Increase Damage 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5628,9 +5683,9 @@ RectTransform:
   m_Father: {fileID: 8808752638323825900}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 280, y: -725}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3621596215517756736
@@ -5714,7 +5769,33 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6063668877845616934}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3760614985965756522}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: IncreaseDamage
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3760614985965756522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6695255626651797776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f35ed2f09c2a4f817b91aeae83e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 400
+  namestring: 'Increase Damage - '
 --- !u!1 &6854138220871802522
 GameObject:
   m_ObjectHideFlags: 0
@@ -5727,8 +5808,9 @@ GameObject:
   - component: {fileID: 937319048177090689}
   - component: {fileID: 5789974148595896999}
   - component: {fileID: 7182531387351282842}
+  - component: {fileID: 7920543783472296626}
   m_Layer: 5
-  m_Name: Upgrade 3
+  m_Name: Increase Health 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5749,9 +5831,9 @@ RectTransform:
   m_Father: {fileID: 8808752638323825900}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 280, y: -500}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &937319048177090689
@@ -5835,7 +5917,33 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5789974148595896999}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7920543783472296626}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: IncreaseHealth
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7920543783472296626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6854138220871802522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f35ed2f09c2a4f817b91aeae83e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 200
+  namestring: 'Increase Health - '
 --- !u!1 &7032264702406465113
 GameObject:
   m_ObjectHideFlags: 0
