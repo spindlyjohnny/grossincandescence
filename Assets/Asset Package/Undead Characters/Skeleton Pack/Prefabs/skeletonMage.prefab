@@ -727,7 +727,7 @@ MonoBehaviour:
   hitsound: {fileID: 8300000, guid: c38e1ec34535cd747af049888e6d1326, type: 3}
   deathsound: {fileID: 8300000, guid: 82cecd0391d490147ad179c1d857d6a4, type: 3}
   bloodvfx: {fileID: 2128197530583651286, guid: 1998c0256ee69b94e8e74f3b7cd987ec, type: 3}
-  hiteffect: {fileID: 6337772125867386339, guid: 0ea09fb950161404790901c0b8c356ce, type: 3}
+  hiteffect: {fileID: 6337772125867386339, guid: c4265669494e66f4287bddb86e301444, type: 3}
   canMove: 0
   isHit: 0
   dead: 0
