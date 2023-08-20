@@ -10,6 +10,8 @@ public class Projectile : Weapon
     public Transform target;
     Vector3 dir;
     public float turnspeed;
+    Coroutine homing;
+    public float yOffset;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,16 +19,24 @@ public class Projectile : Weapon
         players = FindObjectsOfType<Player>();
         FindClosestPlayer();
         dir = target.position - transform.position;
-        rb.velocity = dir.normalized * speed;
+        if (homing != null) StopCoroutine(Move());
+        homing = StartCoroutine(Move());
+        //rb.velocity = dir.normalized * speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 rotationamt = Vector3.Cross(transform.forward,dir.normalized);
-        rb.angularVelocity = rotationamt * turnspeed;
-        //float angle = Mathf.Atan2(dir.z, dir.x);
-        //transform.rotation = Quaternion.Euler(0, angle, 0);
+        dir = target.position - transform.position;
+        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, angle, 0),turnspeed * Time.deltaTime);
+        //Vector3 rotationamt = Vector3.Cross(transform.forward,dir.normalized);
+        //rb.angularVelocity = rotationamt * turnspeed;
+        //Quaternion lookdir = Quaternion.LookRotation(dir);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, lookdir, turnspeed * Time.deltaTime);
+    }
+    private void OnTriggerEnter(Collider other) {
+        if (other.GetComponent<Player>()) Destroy(gameObject);
     }
     void FindClosestPlayer() {
         float closest = 999; float furthest = 0;
@@ -40,6 +50,16 @@ public class Projectile : Weapon
             if ((players[i].transform.position - transform.position).magnitude == closest) {
                 target = players[i].transform;
             }
+        }
+    }
+    IEnumerator Move() {
+        Vector3 startPos = transform.position;
+        float time = 0;
+        while(time < 3) {
+            transform.position = Vector3.Lerp(startPos, target.position + new Vector3(0,yOffset,0), time);
+            transform.LookAt(target.position + new Vector3(0, yOffset, 0));
+            time += Time.deltaTime * speed;
+            yield return null;
         }
     }
 }

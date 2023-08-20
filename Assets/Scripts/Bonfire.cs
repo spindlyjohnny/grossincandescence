@@ -14,19 +14,20 @@ public class Bonfire : MonoBehaviour
     LevelManager levelManager;
     public Transform destination;
     public AudioClip bonfiresound;
+    public Scrollbar scrollBar;
     // Start is called before the first frame update
     void Start()
     {
         buttonprompt.SetActive(false);
         GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
         levelManager = FindObjectOfType<LevelManager>();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(buttonprompt.activeSelf && Input.GetButtonDown("Submit")){
+        if(buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString())){
             buttonprompt.SetActive(false);
             AudioManager.instance.PlaySFX(bonfiresound);
             menu.SetActive(true);
@@ -40,6 +41,10 @@ public class Bonfire : MonoBehaviour
             }
         }
         locationtext.text = locationname;
+        if (menu.activeSelf && Input.GetButtonDown("Cancel")) Leave();
+        if(scrollBar != null && EventSystem.current.currentSelectedGameObject != scrollBar.gameObject) {
+            scrollBar.value = 1 - (EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>().anchoredPosition.y / -725f);
+        }
     }
     private void OnTriggerEnter(Collider other) {
         if (other.GetComponent<Player>() && !other.GetComponent<Bloodstain>()) {

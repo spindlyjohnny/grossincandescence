@@ -9,10 +9,11 @@ public class Unit : MonoBehaviour
     public float maxhitpoints;
     public Slider healthbar;
     public AudioClip hitsound,deathsound;
-    public GameObject bloodvfx;
+    public GameObject bloodvfx,hiteffect;
     public bool canMove,isHit,dead;
     public Animator anim;
     public Rigidbody rb;
+    public float yOffset;
     //public float knockbackforce;
     //public float knockbacklength;
     //public float knockbackcounter;
@@ -41,6 +42,7 @@ public class Unit : MonoBehaviour
     }
     protected virtual void Damaged(Collider other) {
         TakeHit(other.GetComponentInParent<Weapon>().damage);
+        Destroy(Instantiate(hiteffect, transform.position + new Vector3(0,yOffset,0), Quaternion.identity), 0.5f);
         StartCoroutine(Hit());
     }
     public void PlayDeathSound() {

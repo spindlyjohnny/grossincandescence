@@ -161,11 +161,11 @@ public class Player : Unit
         staminaregen = null;
     }
     void Dodge() {
+        StartCoroutine(Invincibility());
         actdodgecooldown = dodgecooldown;
         anim.SetTrigger("Rolling");
         Vector3 dodgedir = movement.normalized;
         movement = dodgeamt * dodgedir;
-        StartCoroutine(Invincibility());
         //canMove = false;
         //yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         //canMove = true;

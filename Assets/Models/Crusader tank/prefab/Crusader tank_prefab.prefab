@@ -11644,11 +11644,13 @@ MonoBehaviour:
   hitsound: {fileID: 0}
   deathsound: {fileID: 8300000, guid: 69f69ff3f1131884e8d8eb37e3bf9101, type: 3}
   bloodvfx: {fileID: 2128197530583651286, guid: 1998c0256ee69b94e8e74f3b7cd987ec, type: 3}
+  hiteffect: {fileID: 6337772125867386339, guid: 0ea09fb950161404790901c0b8c356ce, type: 3}
   canMove: 0
   isHit: 0
   dead: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
+  yOffset: 1.5
   movespeed: 5
   turnspeed: 720
   movement: {x: 0, y: 0, z: 0}
