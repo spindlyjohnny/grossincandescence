@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bloodstaintimertext.text = bloodstaintimer.ToString();
+        bloodstaintimertext.text = bloodstaintimer.ToString("F0");
         if (currentroom.roomstart) {
             //PlayerPrefs.SetInt("Current Room", rooms.IndexOf(currentroom));
             if (enemieskilled >= totalenemiesinwave) {

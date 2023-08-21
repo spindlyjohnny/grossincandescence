@@ -19,6 +19,10 @@ public class Enemy : Unit
     public float attackrate;
     public float turnspeed;
     protected Vector3 dir;
+
+    public float attackingtime; //disable moving while attacking
+    private bool isattacking;
+    private bool faceplayerattack;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,9 +51,24 @@ public class Enemy : Unit
         if (hitpoints <= 0) {
             StartCoroutine(Death());
         }
-        if(dir.magnitude <= agent.stoppingDistance && Time.time >= nextattacktime) {
+
+        attackingtime = attackingtime + Time.deltaTime;
+        if (dir.magnitude <= agent.stoppingDistance && Time.time >= nextattacktime) {
             anim.SetTrigger("Attack");
+            agent.enabled = false;
             nextattacktime = Time.time + attackrate;
+            if (isattacking == false)
+            {
+                 attackingtime = 0;
+                 FacePlayerAttack();
+                 isattacking = true;
+                faceplayerattack = false;
+            }
+        }
+        if (attackingtime >= 2.5f)
+        {
+            isattacking = false;
+            agent.enabled = true;
         }
         // ensure enemy always faces player.
         FacePlayer();
@@ -94,7 +113,13 @@ public class Enemy : Unit
         return false;
     }
     protected virtual void FacePlayer() {
+        if (isattacking == true) return;
         Quaternion lookRotation = Quaternion.LookRotation(-(dir));
         transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnspeed * Time.deltaTime);
+    }
+    void FacePlayerAttack() // look at player after an attack
+    {
+        Quaternion lookRotation = Quaternion.LookRotation(-(dir));
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, (turnspeed * 20) * Time.deltaTime);
     }
 }
