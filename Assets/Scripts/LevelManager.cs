@@ -18,12 +18,14 @@ public class LevelManager : MonoBehaviour
     public float bloodstaintimer;
     public Text bloodstaintimertext;
     public GameObject gameoverscreen;
+    public AudioClip levelmusic;
     // Start is called before the first frame update
     void Start()
     {
         players = FindObjectsOfType<Player>();
         bloodstaintimer = ogbloodstaintimer;
         bloodstaintimertext.transform.parent.gameObject.SetActive(false);
+        AudioManager.instance.StopMusic();
     }
 
     // Update is called once per frame
@@ -41,7 +43,7 @@ public class LevelManager : MonoBehaviour
                 //AudioManager.instance.PlaySFX(AudioManager.instance.entranceSound);
             }
         }
-        if(FindObjectOfType<Bloodstain>() != null) {
+        if(FindObjectOfType<Bloodstain>() != null && !FindObjectOfType<WinScreen>().screen.activeSelf) {
             bloodstaintimertext.transform.parent.gameObject.SetActive(true);
             bloodstaintimer -= Time.deltaTime;
         }
@@ -53,6 +55,7 @@ public class LevelManager : MonoBehaviour
             foreach (var i in players) { 
                 i.hitpoints = 0;
                 StartCoroutine(i.TrueDeath());
+                AudioManager.instance.StopMusic();
             }
             bloodstaintimer = ogbloodstaintimer;
             gameoverscreen.SetActive(true);

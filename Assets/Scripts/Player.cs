@@ -31,6 +31,7 @@ public class Player : Unit
     bool canTurn;
     public AudioClip[] hitsounds;
     public AudioClip healsound,dodgesound;
+    //public float absmaxhealth;
     // Start is called before the first frame update
     void Start() {
         anim = GetComponent<Animator>();
@@ -65,7 +66,7 @@ public class Player : Unit
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnspeed * Time.deltaTime);
         }
         if (Input.GetButtonDown("Attack " + playerNum.ToString())) ConsumeStamina(Actions.attack);
-        if (actdodgecooldown <= 0) { // checks if dodge cooldown is 0 or less
+        if (actdodgecooldown <= 0) { // checks if dodge has finished cooling down
             anim.ResetTrigger("Rolling");
             if (Input.GetButtonDown("Dodge " + playerNum.ToString())) {
                 ConsumeStamina(Actions.dodge,25f);

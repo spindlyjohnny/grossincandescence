@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public GameObject defaultButton;
+    public AudioClip menumusic;
     // Start is called before the first frame update
     void Start()
     {
-      
+        if (!AudioManager.instance.GetComponent<AudioSource>().isPlaying) StartCoroutine(SwitchMusic());
     }
 
     // Update is called once per frame
@@ -28,5 +29,10 @@ public class MainMenu : MonoBehaviour
     }
     public void Back() {
         SceneManager.LoadScene("Main Menu");
+    }
+    IEnumerator SwitchMusic() {
+        AudioManager.instance.StopMusic();
+        yield return new WaitForEndOfFrame();
+        AudioManager.instance.PlayMusic(menumusic);
     }
 }

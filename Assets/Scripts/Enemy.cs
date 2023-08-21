@@ -14,7 +14,7 @@ public class Enemy : Unit
     public int soulvalue;
     public Player player;
     public bool isMoving; //to check if the skeleton is moving
-    Player[] players;
+    protected Player[] players;
     protected float nextattacktime;
     public float attackrate;
     public float turnspeed;
@@ -71,7 +71,7 @@ public class Enemy : Unit
         yield return new WaitForEndOfFrame();
         isHit = false;
     }
-    void FindClosestPlayer() {
+    protected void FindClosestPlayer() {
         float closest = 999; float furthest = 0;
         for (int i = 0; i < players.Length; i++) {
             var dist = (players[i].transform.position - transform.position).magnitude;

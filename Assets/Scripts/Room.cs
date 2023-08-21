@@ -33,8 +33,7 @@ public class Room : MonoBehaviour {
         levelManager.currentroom = gameObject.GetComponent<Room>();
         levelManager.wavecomplete = false;
         levelManager.enemyspawns.Clear();
-        //clearText.gameObject.SetActive(true);
-        //clearText.GetComponent<Text>().color = new Color32(0,0,0,255);
+        AudioManager.instance.PlayMusic(levelManager.levelmusic);
         foreach (var i in myenemyspawns) {
             levelManager.enemyspawns.Add(i);
             i.canSpawn = true;
@@ -44,6 +43,5 @@ public class Room : MonoBehaviour {
         }
         player.respawnpoint = transform.position;
         gameObject.SetActive(false);
-        //AudioManager.instance.PlaySFX(AudioManager.instance.exitSound);
     }
 }

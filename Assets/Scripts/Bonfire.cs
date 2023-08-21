@@ -21,7 +21,7 @@ public class Bonfire : MonoBehaviour
         buttonprompt.SetActive(false);
         GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
         levelManager = FindObjectOfType<LevelManager>();
-        //gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -29,6 +29,7 @@ public class Bonfire : MonoBehaviour
     {
         if(buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString())){
             buttonprompt.SetActive(false);
+            AudioManager.instance.PauseMusic();
             AudioManager.instance.PlaySFX(bonfiresound);
             menu.SetActive(true);
             EventSystem.current.SetSelectedGameObject(null);
@@ -42,8 +43,8 @@ public class Bonfire : MonoBehaviour
         }
         locationtext.text = locationname;
         if (menu.activeSelf && Input.GetButtonDown("Cancel")) Leave();
-        if(scrollBar != null && EventSystem.current.currentSelectedGameObject != scrollBar.gameObject) {
-            scrollBar.value = 1 - (EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>().anchoredPosition.y / -725f);
+        if (scrollBar != null && EventSystem.current.currentSelectedGameObject != scrollBar.gameObject && EventSystem.current.currentSelectedGameObject.TryGetComponent(out RectTransform rect)) {
+            scrollBar.value = 1 - (rect.anchoredPosition.y / -725f);
         }
     }
     private void OnTriggerEnter(Collider other) {
@@ -61,6 +62,7 @@ public class Bonfire : MonoBehaviour
         menu.SetActive(false);
         Time.timeScale = 1;
         foreach (var i in FindObjectsOfType<Player>()) i.canMove = true;
+        AudioManager.instance.ResumeMusic();
     }
     public void StartWave() {
         if (levelManager.waves == 0) return;
@@ -71,6 +73,7 @@ public class Bonfire : MonoBehaviour
         Time.timeScale = 1;
         foreach (var i in FindObjectsOfType<Player>()) i.canMove = true;
         foreach (var i in FindObjectsOfType<Bonfire>()) i.gameObject.SetActive(false);
+        AudioManager.instance.ResumeMusic();
     }
     public void Travel() {
         menu.SetActive(false);
@@ -81,5 +84,6 @@ public class Bonfire : MonoBehaviour
             //FindObjectOfType<CameraController>().smoothing = FindObjectOfType<CameraController>().ogsmoothing;
         }
         AudioManager.instance.PlaySFX(AudioManager.instance.eventsound);
+        if (locationname == "Firelink Shrine") AudioManager.instance.ResumeMusic();
     }
 }

@@ -6,8 +6,8 @@ public class RangedEnemy : Enemy
 {
     public GameObject projectile;
     public Transform firept;
-    public float detectionradius;
-    public float movespeed;
+    //public float detectionradius;
+    //public float movespeed;
     public AudioClip spellsound;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,8 @@ public class RangedEnemy : Enemy
         levelManager = FindObjectOfType<LevelManager>();
         //target = FindObjectOfType<Player>().transform;
         transform.parent.GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
+        players = FindObjectsOfType<Player>();
     }
 
     // Update is called once per frame
@@ -36,9 +37,10 @@ public class RangedEnemy : Enemy
             anim.SetTrigger("Attack");
             nextattacktime = Time.time + attackrate;
         }
-        Collider[] players = Physics.OverlapSphere(transform.position,detectionradius,LayerMask.GetMask("Player"));
-        if(players.Length > 0)player = players[0].GetComponent<Player>();
-        dir = transform.position - player.transform.position;
+        //Collider[] players = Physics.OverlapSphere(transform.position,detectionradius,LayerMask.GetMask("Player"));
+        //if(players.Length > 0)player = players[0].GetComponent<Player>(); 
+        FindClosestPlayer();
+        dir = transform.position - target.position;
         FacePlayer();
     }
     public void Fire() {
@@ -46,15 +48,15 @@ public class RangedEnemy : Enemy
         AudioManager.instance.PlaySFX(spellsound);
     }
     private void FixedUpdate() {
-        if (player != null && dir.magnitude < detectionradius && dir.magnitude > 1f) {
-            canMove = true;
-            isMoving = true;
-        } 
-        else { 
-            isMoving = false;
-            canMove = false;
-        }
-        if (canMove) rb.MovePosition(rb.position + movespeed * Time.deltaTime * (dir + 2 * player.transform.position).normalized);
+        //if (player != null && dir.magnitude < detectionradius && dir.magnitude > 1f) {
+        //    canMove = true;
+        //    isMoving = true;
+        //} 
+        //else { 
+        //    isMoving = false;
+        //    canMove = false;
+        //}
+        //if (canMove) rb.MovePosition(rb.position + movespeed * Time.deltaTime * (dir + 2 * player.transform.position).normalized);
     }
     public override IEnumerator Death() {
         if (!dead) dead = true;
@@ -66,7 +68,7 @@ public class RangedEnemy : Enemy
         if (spawned) levelManager.enemieskilled += 1;
         
     }
-    private void OnDrawGizmosSelected() {
-        Gizmos.DrawWireSphere(transform.position,detectionradius);
-    }
+    //private void OnDrawGizmosSelected() {
+    //    Gizmos.DrawWireSphere(transform.position,detectionradius);
+    //}
 }

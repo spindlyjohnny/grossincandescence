@@ -118,7 +118,7 @@ MonoBehaviour:
   locationname: Firelink Shrine
   destination: {fileID: 0}
   bonfiresound: {fileID: 8300000, guid: 2e61854f2419e1b429e20b3446d4256b, type: 3}
-  scrollbar: {fileID: 0}
+  scrollBar: {fileID: 0}
 --- !u!65 &6379321060167974999
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 01cd679a1b9ee48bf9c546f6ce2cb97e, type: 3}
+    m_Font: {fileID: 12800000, guid: e7e3c2e4f717b02419965ec1a4cf2efe, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -606,7 +606,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 01cd679a1b9ee48bf9c546f6ce2cb97e, type: 3}
+    m_Font: {fileID: 12800000, guid: e7e3c2e4f717b02419965ec1a4cf2efe, type: 3}
     m_FontSize: 21
     m_FontStyle: 0
     m_BestFit: 0
