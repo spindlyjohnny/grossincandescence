@@ -998,6 +998,10 @@ PrefabInstance:
       propertyPath: hiteffect
       value: 
       objectReference: {fileID: 6337772125867386339, guid: c4265669494e66f4287bddb86e301444, type: 3}
+    - target: {fileID: 3250122731390149753, guid: c7e8a5bb79537a441836a1e2ea02a005, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7e8a5bb79537a441836a1e2ea02a005, type: 3}
 --- !u!4 &1268539257000655100 stripped

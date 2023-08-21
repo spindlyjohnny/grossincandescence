@@ -11639,7 +11639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitpoints: 0
-  maxhitpoints: 10
+  maxhitpoints: 4
   healthbar: {fileID: 0}
   hitsound: {fileID: 0}
   deathsound: {fileID: 8300000, guid: 69f69ff3f1131884e8d8eb37e3bf9101, type: 3}
