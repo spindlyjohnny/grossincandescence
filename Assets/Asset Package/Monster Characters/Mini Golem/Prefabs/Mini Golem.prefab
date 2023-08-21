@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitpoints: 0
-  maxhitpoints: 5
+  maxhitpoints: 8
   healthbar: {fileID: 0}
   hitsound: {fileID: 8300000, guid: 8978837f830778647969365f25406e60, type: 3}
   deathsound: {fileID: 8300000, guid: f17d7429942a98047b40b2c0dfd88b6c, type: 3}
