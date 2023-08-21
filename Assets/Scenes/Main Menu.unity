@@ -1324,6 +1324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultButton: {fileID: 46843690}
+  menumusic: {fileID: 8300000, guid: f40ebcaee3d0e2f4b9115d4ed030baee, type: 3}
 --- !u!1 &1809864908
 GameObject:
   m_ObjectHideFlags: 0
