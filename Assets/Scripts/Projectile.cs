@@ -43,7 +43,7 @@ public class Projectile : Weapon
         }
         else
         {
-            timer = timer + Time.deltaTime;
+            timer += Time.deltaTime;
         }
         speed = totalspeed * timer; //Increases time after spawn
         //turnspeed = totalturn * (1 - timer); //decrease turn rate
@@ -93,7 +93,7 @@ public class Projectile : Weapon
             //// Update the position in the move direction
             //transform.position += Vector3.Lerp(1 * moveDirection * speed * Time.deltaTime, 60 * moveDirection * speed * Time.deltaTime, 0.5f);
 
-            Vector3 forwardMovement = Vector3.Lerp(transform.forward * speed * Time.deltaTime, 40 * transform.forward * speed * Time.deltaTime, 0.5f);
+            Vector3 forwardMovement = Vector3.Lerp(speed * Time.deltaTime * transform.forward, 40 * speed * Time.deltaTime * transform.forward, 0.5f);
             transform.position += forwardMovement;
 
             time += Time.deltaTime * speed;

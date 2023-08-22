@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Upgrade : MonoBehaviour
 {
-    public int cost;
+    public int cost; // cost of upgrade
     Player player;
     Text upgradename;
     public string namestring;
-    Button button;
-    public Upgrade prev;
+    Button button; // upgrades are buttons
+    public Upgrade prev; // previous upgrade
     public bool locked;
-    public Bonfire hub;
+    public Bonfire hub; // hub bonfire
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +26,8 @@ public class Upgrade : MonoBehaviour
     void Update()
     {
         player = hub.player;
-        button.interactable = !locked;
-        if(prev != null) {
+        button.interactable = !locked; // button is not interactable if upgrade is locked, interactable is it is not locked
+        if (prev != null) { // check existence to not throw errors for base upgrades
             if (prev.locked) locked = false;
         }
     }
@@ -36,7 +37,10 @@ public class Upgrade : MonoBehaviour
         player.souls -= cost;
         player.maxhitpoints += value;
         player.hitpoints = player.maxhitpoints;
-        locked = true;
+        locked = true; // lock upgrade after getting it so it cannot be purchased again
+        if (prev) prev.locked = false;
+        EventSystem.current.SetSelectedGameObject(null); 
+        EventSystem.current.SetSelectedGameObject(FindObjectOfType<Scrollbar>().gameObject);
     }
     public void IncreaseDamage(float value) {
         if (player.souls < cost) return;
@@ -45,5 +49,8 @@ public class Upgrade : MonoBehaviour
         Weapon weapon = player.GetComponentInChildren<Weapon>();
         weapon.damage += value;
         locked = true;
+        if (prev) prev.locked = false;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(FindObjectOfType<Scrollbar>().gameObject);
     }
 }

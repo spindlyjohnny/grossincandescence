@@ -24,8 +24,8 @@ public class LevelManager : MonoBehaviour
     {
         players = FindObjectsOfType<Player>();
         bloodstaintimer = ogbloodstaintimer;
-        bloodstaintimertext.transform.parent.gameObject.SetActive(false);
-        AudioManager.instance.StopMusic();
+        bloodstaintimertext.transform.parent.gameObject.SetActive(false); // deactivate bloodstain timer on start
+        AudioManager.instance.StopMusic(); // stops music from previous scene
     }
 
     // Update is called once per frame
@@ -33,26 +33,24 @@ public class LevelManager : MonoBehaviour
     {
         bloodstaintimertext.text = bloodstaintimer.ToString("F0");
         if (currentroom.roomstart) {
-            //PlayerPrefs.SetInt("Current Room", rooms.IndexOf(currentroom));
-            if (enemieskilled >= totalenemiesinwave) {
+            if (enemieskilled >= totalenemiesinwave) { // check if all enemies for the wave are dead
                 wavecomplete = true;
                 EndOfWave();
             }
             if (waves == 0 && currentroom.roomstart) {
                 currentroom.roomstart = false;
-                //AudioManager.instance.PlaySFX(AudioManager.instance.entranceSound);
             }
         }
-        if(FindObjectOfType<Bloodstain>() != null && !FindObjectOfType<WinScreen>().screen.activeSelf) {
+        if(FindObjectOfType<Bloodstain>() != null && !FindObjectOfType<WinScreen>().screen.activeSelf) { // checks if there is a bloodstain and that the level hasnt been cleared
             bloodstaintimertext.transform.parent.gameObject.SetActive(true);
             bloodstaintimer -= Time.deltaTime;
         }
-        if (FindObjectOfType<Bloodstain>(true).collected) {
+        if (FindObjectOfType<Bloodstain>(true).collected) { // bloodstain has been collected, reset timer and hide it.
             bloodstaintimer = ogbloodstaintimer;
             bloodstaintimertext.transform.parent.gameObject.SetActive(false);
         }
         if (bloodstaintimer <= 0) {
-            foreach (var i in players) { 
+            foreach (var i in players) { // kill all players if bloodstain timer runs out
                 i.hitpoints = 0;
                 StartCoroutine(i.TrueDeath());
                 AudioManager.instance.StopMusic();

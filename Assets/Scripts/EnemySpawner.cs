@@ -7,12 +7,12 @@ public class EnemySpawner : MonoBehaviour
     public int enemiesspawned; // number of enemies spawned
     public int[] enemiestospawn; // number of enemies to spawn for each wave
     public GameObject[] instprefab; // types of enemies to spawn
-    public float instrate;
+    public float instrate; // time between each enemy spawning
     LevelManager levelManager;
     Player player;
     float nextinsttime;
     public bool canSpawn;
-    public int currentwave;
+    public int currentwave; // iterate through enemiestospawn
     
     // Start is called before the first frame update
     void Start() {
@@ -35,7 +35,6 @@ public class EnemySpawner : MonoBehaviour
             GameObject go = Instantiate(instprefab[Random.Range(0, instprefab.Length)], transform.position, transform.rotation); // spawns a random enemy type
             go.GetComponentInChildren<Enemy>().spawned = true;
             go.GetComponentInChildren<Enemy>().canMove = true;
-            go.GetComponentInChildren<Enemy>().spawner = transform;
             nextinsttime = Time.time + instrate;
             enemiesspawned++;
         }

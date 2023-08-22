@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class Bloodstain : MonoBehaviour
 {
-    public int souls;
+    public int souls; // souls in bloodstain
     public GameObject buttonprompt;
-    public Player player;
+    public Player player; // player that died
     public bool collected;
     // Start is called before the first frame update
     void Start()
     {
         buttonprompt.SetActive(false);
-        GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
+        GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>(); // set camera of canvas for button prompt
         collected = false;
     }
 
@@ -21,9 +21,10 @@ public class Bloodstain : MonoBehaviour
     void Update()
     {
         RaycastHit[] isplayer = Physics.BoxCastAll(transform.position, new Vector3(0.5f, .5f, .5f), Vector3.up, Quaternion.identity, Mathf.Infinity, LayerMask.GetMask("Player")); // check if there's a player touching bloodstain
+        // check if button prompt is active, button has been pressed, and that player within boxcast is the same player that dropped the bloodstain.
         if (buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString()) && isplayer[0].transform.gameObject.GetComponent<Player>() == player) {
             gameObject.SetActive(false);
-            player.souls += souls;
+            player.souls += souls; // adds souls stored in bloodstain to player's souls
             collected = true;
             AudioManager.instance.PlaySFX(AudioManager.instance.eventsound);
         }

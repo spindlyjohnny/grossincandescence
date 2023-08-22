@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
-    [SerializeField] AudioSource sfxaudio, musicaudio;
+    public static AudioManager instance; // singleton
+    [SerializeField] AudioSource sfxaudio, musicaudio; // audiosources for music and sfx
     public AudioClip eventsound;
     // Start is called before the first frame update
     private void Awake() {
-        if(instance == null) {
+        if(instance == null) { // create singleton
             instance = this;
             DontDestroyOnLoad(gameObject);
         } 
@@ -19,6 +19,9 @@ public class AudioManager : MonoBehaviour
     }
     public void StopMusic() {
         musicaudio.Stop();
+    }
+    public void StopSFX() {
+        sfxaudio.Stop();
     }
     public void PlayMusic(AudioClip clip) {
         if (musicaudio.isPlaying) return;
@@ -31,13 +34,7 @@ public class AudioManager : MonoBehaviour
     public void ResumeMusic() {
         musicaudio.UnPause();
     }
-    public void PlaySFX(AudioClip clip,bool vary = false) {
-        if (vary) { 
-            sfxaudio.pitch = Random.Range(1, 4);
-            sfxaudio.PlayOneShot(clip);
-        } 
-        else {
-            sfxaudio.PlayOneShot(clip);
-        }
+    public void PlaySFX(AudioClip clip) {
+        sfxaudio.PlayOneShot(clip); 
     }
 }

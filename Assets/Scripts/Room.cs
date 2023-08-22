@@ -7,15 +7,12 @@ public class Room : MonoBehaviour {
     public int roomwaves; // number of waves
     public bool roomstart; // controls if enemies should start spawning or not
     public EnemySpawner[] myenemyspawns; // spawners to control
-    Player player;
+    Player[] players;
     LevelManager levelManager;
-    //WaveClearText clearText;
-    //[SerializeField] GameObject[] triggers;
     // Start is called before the first frame update
     void Start() {
-        player = FindObjectOfType<Player>();
         levelManager = FindObjectOfType<LevelManager>();
-        //clearText = FindObjectOfType<WaveClearText>();
+        players = FindObjectsOfType<Player>();
     }
 
     // Update is called once per frame
@@ -41,7 +38,7 @@ public class Room : MonoBehaviour {
         foreach (var i in levelManager.enemyspawns) {
             levelManager.totalenemiesinwave += i.enemiestospawn[i.currentwave]; // adds up the number of enemies to spawn from each spawner for the current wave
         }
-        player.respawnpoint = transform.position;
+        foreach(var i in players)i.respawnpoint = transform.position; // set respawn point for players
         gameObject.SetActive(false);
     }
 }

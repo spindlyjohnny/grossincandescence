@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject defaultButton;
+    public GameObject defaultButton; // button that is automatically selected (for controller navigation)
     public AudioClip menumusic;
     // Start is called before the first frame update
     void Start()

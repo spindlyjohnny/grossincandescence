@@ -8,12 +8,11 @@ public class Enemy : Unit
     //public float damage;
     NavMeshAgent agent;
     public Transform target;
-    public Transform spawner;
     public bool spawned;
     protected LevelManager levelManager;
     public int soulvalue;
     public Player player;
-    public bool isMoving; //to check if the skeleton is moving
+    public bool isMoving; //to check if the enemy is moving
     protected Player[] players;
     protected float nextattacktime;
     public float attackrate;
@@ -30,52 +29,50 @@ public class Enemy : Unit
         hitpoints = maxhitpoints;
         agent = GetComponent<NavMeshAgent>();
         levelManager = FindObjectOfType<LevelManager>();
-        target = FindObjectOfType<Player>().transform;
+        players = FindObjectsOfType<Player>(); // find all players in order to find the closest one.
+        FindClosestPlayer(); // finds closest player and sets it as the target to follow.
+        //target = FindObjectOfType<Player>().transform;
         transform.parent.GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
-        players = FindObjectsOfType<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (levelManager.gameoverscreen.activeSelf) return;
-        dir = transform.position - target.position;
-        SetHealth(hitpoints, maxhitpoints);
+        if (levelManager.gameoverscreen.activeSelf) return; // don't do anything if game is over.
+        dir = transform.position - target.position; // distance between enemy and target
+        SetHealth(hitpoints, maxhitpoints); // sets health bar value to health
         anim.SetBool("Hit", isHit);
         anim.SetBool("Moving", isMoving);
-        if(ContainsParam("Death")) anim.SetBool("Death", dead);
-        if(canMove)agent.SetDestination(target.position); // follow player
+        
+        if(ContainsParam("Death")) anim.SetBool("Death", dead); // ContainsParam function is used to check if "Death" anim param exists since not all enemy types have it
+        
+        if(canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))agent.SetDestination(target.position); // follow player if can move and not attacking
         healthbar.gameObject.transform.position = transform.position + new Vector3(0, 2, 0);
+        
         if (agent.hasPath && dir.magnitude > agent.stoppingDistance)isMoving = true;
         else isMoving = false;
+        
         if (hitpoints <= 0) {
             StartCoroutine(Death());
         }
-
-        attackingtime = attackingtime + Time.deltaTime;
-        if (dir.magnitude <= agent.stoppingDistance && Time.time >= nextattacktime) {
+        attackingtime += Time.deltaTime;
+        if (dir.magnitude <= agent.stoppingDistance && Time.time >= nextattacktime) {  // check if enemy can attack and target is within range
             anim.SetTrigger("Attack");
-            agent.enabled = false;
             nextattacktime = Time.time + attackrate;
-            if (isattacking == false)
-            {
-                 attackingtime = 0;
-                 FacePlayerAttack();
-                 isattacking = true;
-                faceplayerattack = false;
+            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > .7f) isattacking = false;
+            if (isattacking == false) {
+                attackingtime = 0;
+                FacePlayerAttack();
+                isattacking = true;
             }
         }
-        if (attackingtime >= 2.5f)
-        {
-            isattacking = false;
-            agent.enabled = true;
-        }
+        if (attackingtime >= anim.GetCurrentAnimatorStateInfo(0).length) isattacking = false;
         // ensure enemy always faces player.
         FacePlayer();
-        FindClosestPlayer();
+        FindClosestPlayer(); // changes target according to distance.
     }
     public virtual IEnumerator Death() {
-        if(agent)agent.velocity = Vector3.zero;
+        if(agent)agent.velocity = Vector3.zero; // check for agent since not all enemies have agents
         if (!dead) dead = true;
         healthbar.gameObject.SetActive(false);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
@@ -90,23 +87,20 @@ public class Enemy : Unit
         yield return new WaitForEndOfFrame();
         isHit = false;
     }
-    protected void FindClosestPlayer() {
-        float closest = 999; float furthest = 0;
-        for (int i = 0; i < players.Length; i++) {
-            var dist = (players[i].transform.position - transform.position).magnitude;
+    protected void FindClosestPlayer() { // finds closest player and sets them as the target and player vars.
+        float closest = 999;
+        for (int i = 0; i < players.Length; i++) { // iterate through list of players
+            var dist = (players[i].transform.position - transform.position).magnitude; // get distance between enemy and current player
             if (dist < closest) {
                 closest = dist;
             }
-            else if (dist > furthest) {
-                furthest = dist;
-            }
-            if ((players[i].transform.position - transform.position).magnitude == closest) {
+            if ((players[i].transform.position - transform.position).magnitude == closest) { // check if current player is the closest one
                 target = players[i].transform;
                 player = players[i];
             }
         }
     }
-    bool ContainsParam(string paramname) {
+    bool ContainsParam(string paramname) { // check if an anim param exists
         foreach (var param in anim.parameters) {
             if (param.name == paramname) return true;
         }

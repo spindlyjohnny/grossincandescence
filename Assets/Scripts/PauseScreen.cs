@@ -19,7 +19,7 @@ public class PauseScreen : MonoBehaviour
         if (Input.GetButtonDown("Pause")) {
             Time.timeScale = 0;
             EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(defaultButton);
+            EventSystem.current.SetSelectedGameObject(defaultButton); // set button that is automatically selected (for controller navigation)
             foreach (var i in FindObjectsOfType<Player>()) i.canMove = false;
             AudioManager.instance.PauseMusic();
             menu.SetActive(true);

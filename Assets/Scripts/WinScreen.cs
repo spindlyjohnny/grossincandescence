@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class WinScreen : MonoBehaviour
 {
-    public GameObject defaultButton;
+    public GameObject defaultButton; // button that is automatically selected
     public int scenetoload;
     public GameObject screen;
     LevelManager levelManager;
@@ -24,6 +24,7 @@ public class WinScreen : MonoBehaviour
             screen.SetActive(true);
             AudioManager.instance.StopMusic();
             AudioManager.instance.PlaySFX(AudioManager.instance.eventsound);
+            AudioManager.instance.StopSFX();
         }
     }
     public void NextLevel() {
