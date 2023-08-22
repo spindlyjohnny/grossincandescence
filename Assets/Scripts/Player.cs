@@ -35,7 +35,7 @@ public class Player : Unit
     protected override void OnEnable() {
         isHealing = false;
         anim.ResetTrigger("Attack");
-        anim.ResetTrigger("Rolling");
+        //anim.ResetTrigger("Rolling");
         base.OnEnable();
     }
     void Start() {
@@ -83,7 +83,6 @@ public class Player : Unit
         if (Input.GetButtonDown("Heal " + playerNum.ToString())) {
             StartCoroutine(Heal());
         }
-        //if (dead && !bloodstain.GetComponent<Bloodstain>().collected) bloodstain.SetActive(false);
         if (hitpoints <= 0) {
             dead = true;
             if(!levelManager.gameoverscreen.activeSelf) StartCoroutine(Death());
@@ -115,7 +114,7 @@ public class Player : Unit
         movement = Vector2.zero;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         Destroy(Instantiate(bloodvfx, transform.position, transform.rotation), bloodvfx.GetComponent<AudioSource>().clip.length);
-        Bloodstain bs = Instantiate(bloodstain, transform.position, transform.rotation).GetComponent<Bloodstain>();
+        Bloodstain bs = Instantiate(bloodstain, transform.position, Quaternion.identity).GetComponent<Bloodstain>();
         bs.souls = souls;
         bs.collected = false;
         bs.player = gameObject.GetComponent<Player>();
@@ -163,7 +162,7 @@ public class Player : Unit
         yield return new WaitForSeconds(2f);
         while(stamina < maxstamina) {
             stamina += maxstamina / 350;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
         }
         staminaregen = null;
     }
