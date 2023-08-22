@@ -15,13 +15,14 @@ public class Bonfire : MonoBehaviour
     public Transform destination;
     public AudioClip bonfiresound;
     public Scrollbar scrollBar;
+    public RectTransform rect;
     // Start is called before the first frame update
     void Start()
     {
         buttonprompt.SetActive(false);
         GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>();
         levelManager = FindObjectOfType<LevelManager>();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,8 +44,8 @@ public class Bonfire : MonoBehaviour
         }
         locationtext.text = locationname;
         if (menu.activeSelf && Input.GetButtonDown("Cancel")) Leave();
-        if (scrollBar != null && EventSystem.current.currentSelectedGameObject != scrollBar.gameObject && EventSystem.current.currentSelectedGameObject.TryGetComponent(out RectTransform rect)) {
-            scrollBar.value = 1 - (rect.anchoredPosition.y / -725f);
+        if (scrollBar != null && EventSystem.current.currentSelectedGameObject != scrollBar.gameObject && EventSystem.current.currentSelectedGameObject.transform.parent == rect) {
+            scrollBar.value = 1 + (EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>().anchoredPosition.y / rect.rect.height);
         }
     }
     private void OnTriggerEnter(Collider other) {

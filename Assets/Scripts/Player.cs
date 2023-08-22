@@ -91,7 +91,7 @@ public class Player : Unit
         }
     }
     private void FixedUpdate() {
-        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
+        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge")) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
         float delta = Time.fixedDeltaTime;
         if(cam != null) {
             cam.FollowTarget(delta);
