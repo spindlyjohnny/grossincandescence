@@ -11661,7 +11661,7 @@ MonoBehaviour:
   maxstamina: 100
   staminabar: {fileID: 0}
   bloodstain: {fileID: 4224691496755885292, guid: e2f397cee1b16484eae5f6ef9c42c328, type: 3}
-  dodgeamt: 3
+  dodgeamt: 500
   dodgecooldown: 1
   heals: 5
   healcount: {fileID: 0}

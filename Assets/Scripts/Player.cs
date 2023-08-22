@@ -31,8 +31,13 @@ public class Player : Unit
     bool canTurn;
     public AudioClip[] hitsounds;
     public AudioClip healsound,dodgesound;
-    //public float absmaxhealth;
     // Start is called before the first frame update
+    protected override void OnEnable() {
+        isHealing = false;
+        anim.ResetTrigger("Attack");
+        anim.ResetTrigger("Rolling");
+        base.OnEnable();
+    }
     void Start() {
         anim = GetComponent<Animator>();
         hitpoints = maxhitpoints;
@@ -147,7 +152,7 @@ public class Player : Unit
                 staminaregen = StartCoroutine(StaminaRegen());
                 break;
             case Actions.dodge:
-                Dodge();
+                anim.SetTrigger("Rolling");
                 stamina -= amt;
                 if (staminaregen != null) StopCoroutine(StaminaRegen());
                 staminaregen = StartCoroutine(StaminaRegen());
@@ -157,17 +162,18 @@ public class Player : Unit
     IEnumerator StaminaRegen() {
         yield return new WaitForSeconds(2f);
         while(stamina < maxstamina) {
-            stamina += maxstamina / 100;
-            yield return new WaitForSeconds(0.1f);
+            stamina += maxstamina / 350;
+            yield return new WaitForSeconds(0.5f);
         }
         staminaregen = null;
     }
-    void Dodge() {
+    public void Dodge() {
         StartCoroutine(Invincibility());
         actdodgecooldown = dodgecooldown;
-        anim.SetTrigger("Rolling");
         Vector3 dodgedir = movement.normalized;
-        movement = dodgeamt * dodgedir;
+        //transform.position = Vector3.Lerp(transform.position, transform.position + dodgeamt * dodgedir, Time.deltaTime);
+        transform.position += dodgeamt * Time.deltaTime * dodgedir;
+        //rb.MovePosition(rb.position + dodgeamt * Time.deltaTime * dodgedir);
         //canMove = false;
         //yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         //canMove = true;
