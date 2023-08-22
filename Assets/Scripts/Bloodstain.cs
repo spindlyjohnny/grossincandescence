@@ -31,7 +31,6 @@ public class Bloodstain : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other) {
         if (other.GetComponent<Player>()) {
-            player = other.GetComponent<Player>(); // store reference to add souls to correct player
             buttonprompt.SetActive(true);
         }
     }

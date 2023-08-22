@@ -91,7 +91,7 @@ public class Player : Unit
         }
     }
     private void FixedUpdate() {
-        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge")) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
+        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHealing) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
         float delta = Time.fixedDeltaTime;
         if(cam != null) {
             cam.FollowTarget(delta);
@@ -113,6 +113,7 @@ public class Player : Unit
         Bloodstain bs = Instantiate(bloodstain, transform.position, transform.rotation).GetComponent<Bloodstain>();
         bs.souls = souls;
         bs.collected = false;
+        bs.player = gameObject.GetComponent<Player>();
         souls = 0;
         if(levelManager.bloodstaintimer != 0)levelManager.Respawn();
     }
@@ -178,7 +179,7 @@ public class Player : Unit
         if (heals == 0) yield return null;
         isHealing = true;
         heals -= 1;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
         isHealing = false;
         hitpoints += maxhitpoints * .25f;
         if (hitpoints > maxhitpoints) hitpoints = maxhitpoints;
