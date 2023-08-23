@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class LevelManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class LevelManager : MonoBehaviour
     public Text bloodstaintimertext;
     public GameObject gameoverscreen;
     public AudioClip levelmusic;
+    public GameObject defaultButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +56,8 @@ public class LevelManager : MonoBehaviour
                 i.hitpoints = 0;
                 StartCoroutine(i.TrueDeath());
                 AudioManager.instance.StopMusic();
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(defaultButton);
             }
             bloodstaintimer = ogbloodstaintimer;
             gameoverscreen.SetActive(true);
