@@ -669,7 +669,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100024}
   m_LocalRotation: {x: 0, y: -0.96521026, z: 0, w: 0.26147518}
-  m_LocalPosition: {x: 0.01161301, y: 0.5146427, z: -7.556445}
+  m_LocalPosition: {x: 0.01161301, y: 0.5146427, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400098}
@@ -735,17 +735,16 @@ MonoBehaviour:
   rb: {fileID: 0}
   yOffset: 1.5
   target: {fileID: 0}
-  spawner: {fileID: 0}
   spawned: 0
   soulvalue: 50
   player: {fileID: 0}
   isMoving: 0
   attackrate: 6
   turnspeed: 180
+  healthbarheight: 2
+  attackingtime: 0
   projectile: {fileID: 4589420223335500415, guid: 52f9eab4fd56ee54ebd1d386369f2f21, type: 3}
   firept: {fileID: 4894906551214390856}
-  detectionradius: 3
-  movespeed: 3.5
   spellsound: {fileID: 8300000, guid: 4e79b562c436e9c489ca798fe5138af7, type: 3}
 --- !u!54 &7242759128174917491
 Rigidbody:

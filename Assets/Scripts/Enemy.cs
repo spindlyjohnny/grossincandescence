@@ -18,7 +18,7 @@ public class Enemy : Unit
     public float attackrate;
     public float turnspeed;
     protected Vector3 dir;
-
+    public float healthbarheight; 
     public float attackingtime; //disable moving while attacking
     private bool isattacking;
     private bool faceplayerattack;
@@ -47,7 +47,7 @@ public class Enemy : Unit
         if(ContainsParam("Death")) anim.SetBool("Death", dead); // ContainsParam function is used to check if "Death" anim param exists since not all enemy types have it
         
         if(canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))agent.SetDestination(target.position); // follow player if can move and not attacking
-        healthbar.gameObject.transform.position = transform.position + new Vector3(0, 2, 0);
+        healthbar.gameObject.transform.position = transform.position + new Vector3(0, healthbarheight, 0);
         
         if (agent.hasPath && dir.magnitude > agent.stoppingDistance)isMoving = true;
         else isMoving = false;

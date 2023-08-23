@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  maxdamage: 0
 --- !u!65 &9026244219253644591
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -441,13 +442,13 @@ MonoBehaviour:
   rb: {fileID: 0}
   yOffset: 1.03
   target: {fileID: 0}
-  spawner: {fileID: 0}
   spawned: 0
   soulvalue: 25
   player: {fileID: 0}
   isMoving: 0
   attackrate: 1.5
   turnspeed: 180
+  healthbarheight: 2
   attackingtime: 0
 --- !u!65 &3784332875758321312
 BoxCollider:
