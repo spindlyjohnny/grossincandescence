@@ -20,6 +20,7 @@ public class Player : Unit
     public float dodgeamt = 3; // how far dodging pushes you
     public float dodgecooldown;
     float actdodgecooldown;
+    Vector3 dodgemovement;
     public int heals;
     public Text healcount;
     public enum Players { P1, P2 }
@@ -62,11 +63,11 @@ public class Player : Unit
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit && !isHealing && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) canTurn = true; // if not performing an action, can turn.
         // set rotation of player while moving.
         Quaternion toRotation = Quaternion.LookRotation(movement.normalized, Vector3.up);
-        if (movement.magnitude >= .1f && canTurn) {
+        if (movement.magnitude >= .1f && canTurn && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHealing) {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnspeed * Time.deltaTime);
         }
         if (Input.GetButtonDown("Attack " + playerNum.ToString())) ConsumeStamina(Actions.attack);
-        if (actdodgecooldown <= 0) { // checks if dodge has finished cooling down
+        if (actdodgecooldown <= 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)) { // checks if dodge has finished cooling down + is not standing still
             anim.ResetTrigger("Rolling");
             if (Input.GetButtonDown("Dodge " + playerNum.ToString())) {
                 ConsumeStamina(Actions.dodge,25f);
@@ -86,8 +87,14 @@ public class Player : Unit
     }
     private void FixedUpdate() {
         // move if not performing other actions.
-        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHealing) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
+        if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHealing) rb.MovePosition( rb.position + movespeed * Time.deltaTime * movement.normalized);
         float delta = Time.fixedDeltaTime;
+        if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge"))
+        {
+            transform.position = (Vector3.Lerp(transform.position, (rb.position + dodgeamt/80 * Time.deltaTime * dodgemovement.normalized), 1f));
+            //rb.MovePosition(rb.position + movespeed * Time.deltaTime * dodgemovement.normalized);
+        }
+
         if(cam != null) {
             cam.FollowTarget(delta);
             cam.Rotate(delta);
@@ -158,10 +165,12 @@ public class Player : Unit
         staminaregen = null;
     }
     public void Dodge() { // animation event.
+        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) return;
         StartCoroutine(Invincibility());
         actdodgecooldown = dodgecooldown;
-        Vector3 dodgedir = movement.normalized;
-        transform.position += dodgeamt * Time.deltaTime * dodgedir;
+        dodgemovement = movement;
+      ///Vector3 dodgedir = movement.normalized;
+        //transform.position += dodgeamt * Time.deltaTime * dodgedir;
     }
     public void PlayDodgeSound() { // animation event
         AudioManager.instance.PlaySFX(dodgesound);

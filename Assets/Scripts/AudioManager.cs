@@ -29,10 +29,10 @@ public class AudioManager : MonoBehaviour
         musicaudio.Play();
     }
     public void PauseMusic() {
-        musicaudio.Pause();
+        musicaudio.volume = 0.5f;
     }
     public void ResumeMusic() {
-        musicaudio.UnPause();
+        musicaudio.volume = 1f;
     }
     public void PlaySFX(AudioClip clip) {
         sfxaudio.PlayOneShot(clip); 
