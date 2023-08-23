@@ -67,7 +67,7 @@ public class Player : Unit
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnspeed * Time.deltaTime);
         }
         if (Input.GetButtonDown("Attack " + playerNum.ToString())) ConsumeStamina(Actions.attack);
-        if (actdodgecooldown <= 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)) { // checks if dodge has finished cooling down + is not standing still
+        if (actdodgecooldown <= 0 && movement.magnitude != 0) { // checks if dodge has finished cooling down + is not standing still
             anim.ResetTrigger("Rolling");
             if (Input.GetButtonDown("Dodge " + playerNum.ToString())) {
                 ConsumeStamina(Actions.dodge,25f);
@@ -91,7 +91,7 @@ public class Player : Unit
         float delta = Time.fixedDeltaTime;
         if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge"))
         {
-            transform.position = (Vector3.Lerp(transform.position, (rb.position + dodgeamt/80 * Time.deltaTime * dodgemovement.normalized), 1f));
+            transform.position = (Vector3.Lerp(transform.position, (transform.position + dodgeamt/80 * Time.deltaTime * dodgemovement.normalized), 1f));
             //rb.MovePosition(rb.position + movespeed * Time.deltaTime * dodgemovement.normalized);
         }
 
@@ -165,7 +165,7 @@ public class Player : Unit
         staminaregen = null;
     }
     public void Dodge() { // animation event.
-        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) return;
+        if (movement.x == 0 && movement.z == 0) return;
         StartCoroutine(Invincibility());
         actdodgecooldown = dodgecooldown;
         dodgemovement = movement;
