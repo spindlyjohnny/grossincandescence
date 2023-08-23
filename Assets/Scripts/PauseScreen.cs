@@ -24,6 +24,7 @@ public class PauseScreen : MonoBehaviour
             AudioManager.instance.PauseMusic();
             menu.SetActive(true);
         }
+        if (Input.GetButtonDown("Cancel")) Resume();
     }
     public void Resume() {
         Time.timeScale = 1;

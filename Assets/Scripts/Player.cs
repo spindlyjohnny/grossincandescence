@@ -31,11 +31,10 @@ public class Player : Unit
     bool canTurn;
     public AudioClip[] hitsounds;
     public AudioClip healsound,dodgesound;
+    public float maxhealth;
     // Start is called before the first frame update
     protected override void OnEnable() {
         isHealing = false;
-        anim.ResetTrigger("Attack");
-        //anim.ResetTrigger("Rolling");
         base.OnEnable();
     }
     void Start() {
@@ -64,7 +63,7 @@ public class Player : Unit
         soulcount.text = souls.ToString();
         healcount.text = heals.ToString();
         movement = new Vector3(Input.GetAxis("Horizontal " + playerNum.ToString()), 0, Input.GetAxis("Vertical " + playerNum.ToString()));
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit && !isHealing && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) canTurn = true;
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHit && !isHealing && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) canTurn = true; // if not performing an action, can turn.
         // set rotation of player while moving.
         Quaternion toRotation = Quaternion.LookRotation(movement.normalized, Vector3.up);
         if (movement.magnitude >= .1f && canTurn) {
@@ -80,21 +79,17 @@ public class Player : Unit
         else {
             actdodgecooldown -= Time.deltaTime;
         }
-        if (Input.GetButtonDown("Heal " + playerNum.ToString())) {
-            StartCoroutine(Heal());
-        }
+        if (Input.GetButtonDown("Heal " + playerNum.ToString())) StartCoroutine(Heal());
         if (hitpoints <= 0) {
             dead = true;
-            if(!levelManager.gameoverscreen.activeSelf) StartCoroutine(Death());
+            if(!levelManager.gameoverscreen.activeSelf) StartCoroutine(Death()); // don't start regular death coroutine if game over.
             hitpoints = maxhitpoints;
-            Bloodstain bs = FindObjectOfType<Bloodstain>();
+            Bloodstain bs = FindObjectOfType<Bloodstain>(); // destroys any bloodstain that already exists in the scene and replaces it with a new one.
             if (bs) bs.gameObject.SetActive(false);
-        }
-        if (levelManager.gameoverscreen.activeSelf) {
-            Destroy(Instantiate(deathvfx, transform.position, Quaternion.identity), 1);
         }
     }
     private void FixedUpdate() {
+        // move if not performing other actions.
         if (canMove && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !dead && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Dodge") && !isHealing) rb.MovePosition(rb.position + movespeed * Time.deltaTime * movement.normalized);
         float delta = Time.fixedDeltaTime;
         if(cam != null) {
@@ -103,7 +98,7 @@ public class Player : Unit
         }
     }
     public override void OnTriggerEnter(Collider other) {
-        if(other.GetComponent<Weapon>() && other.GetComponentInParent<Enemy>() != null && !dead) {
+        if(other.GetComponent<Weapon>() && other.GetComponentInParent<Enemy>() != null && !dead) { // get damaged if other is a weapon that is a child of an attacking enemy
             if(other.GetComponentInParent<Enemy>().anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) Damaged(other);
         }
         if (other.GetComponent<Projectile>() && !dead) {
@@ -119,7 +114,7 @@ public class Player : Unit
         bs.collected = false;
         bs.player = gameObject.GetComponent<Player>();
         souls = 0;
-        if(levelManager.bloodstaintimer != 0)levelManager.Respawn();
+        if(levelManager.bloodstaintimer != 0)levelManager.Respawn(); // respawn if bloodstain timer hasn't run out
     }
     public IEnumerator TrueDeath() {
         movement = Vector2.zero;
@@ -129,9 +124,9 @@ public class Player : Unit
         gameObject.SetActive(false);
     }
     public override IEnumerator Hit() {
-        if (dead) yield return null;
+        if (dead) yield return null; // don't get hit if dead
         isHit = true;
-        AudioManager.instance.PlaySFX(hitsounds[Random.Range(0,hitsounds.Length)]);
+        AudioManager.instance.PlaySFX(hitsounds[Random.Range(0,hitsounds.Length)]); // play random hit sound
         StartCoroutine(Invincibility());
         yield return new WaitForEndOfFrame();
         isHit = false;
@@ -166,30 +161,25 @@ public class Player : Unit
         }
         staminaregen = null;
     }
-    public void Dodge() {
+    public void Dodge() { // animation event.
         StartCoroutine(Invincibility());
         actdodgecooldown = dodgecooldown;
         Vector3 dodgedir = movement.normalized;
-        //transform.position = Vector3.Lerp(transform.position, transform.position + dodgeamt * dodgedir, Time.deltaTime);
         transform.position += dodgeamt * Time.deltaTime * dodgedir;
-        //rb.MovePosition(rb.position + dodgeamt * Time.deltaTime * dodgedir);
-        //canMove = false;
-        //yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        //canMove = true;
     }
-    public void PlayDodgeSound() {
+    public void PlayDodgeSound() { // animation event
         AudioManager.instance.PlaySFX(dodgesound);
     }
     IEnumerator Heal() {
-        if (heals == 0) yield return null;
+        if (heals == 0) yield return null; // don't start coroutine if no heals
         isHealing = true;
         heals -= 1;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
         isHealing = false;
         hitpoints += maxhitpoints * .25f;
-        if (hitpoints > maxhitpoints) hitpoints = maxhitpoints;
+        if (hitpoints > maxhitpoints) hitpoints = maxhitpoints; // limit health to max health
     }
-    public void PlayHealSound() {
+    public void PlayHealSound() { // animation event
         AudioManager.instance.PlaySFX(healsound);
     }
 }

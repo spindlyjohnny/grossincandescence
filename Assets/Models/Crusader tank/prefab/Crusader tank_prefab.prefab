@@ -8116,6 +8116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  maxdamage: 2
 --- !u!136 &1543592398069439744
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11676,6 +11677,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: dafdb6a265238ac45974b66ba95d4eb1, type: 3}
   healsound: {fileID: 8300000, guid: 0d26f47cfda57db4cb5e84843b1cd37b, type: 3}
   dodgesound: {fileID: 8300000, guid: 4fe63cc9bafad814e9920a42c8fc0164, type: 3}
+  maxhealth: 6
 --- !u!54 &1154641637555395641
 Rigidbody:
   m_ObjectHideFlags: 0

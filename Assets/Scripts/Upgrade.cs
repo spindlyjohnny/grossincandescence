@@ -33,6 +33,7 @@ public class Upgrade : MonoBehaviour
     }
     public void IncreaseHealth(float value) {
         if (player.souls < cost) return;
+        if (player.hitpoints == player.maxhealth) return;
         AudioManager.instance.PlaySFX(AudioManager.instance.eventsound);
         player.souls -= cost;
         player.maxhitpoints += value;
@@ -43,10 +44,11 @@ public class Upgrade : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(FindObjectOfType<Scrollbar>().gameObject);
     }
     public void IncreaseDamage(float value) {
+        Weapon weapon = player.GetComponentInChildren<Weapon>();
         if (player.souls < cost) return;
+        if (weapon.damage == weapon.maxdamage) return;
         AudioManager.instance.PlaySFX(AudioManager.instance.eventsound);
         player.souls -= cost;
-        Weapon weapon = player.GetComponentInChildren<Weapon>();
         weapon.damage += value;
         locked = true;
         if (prev) prev.locked = false;

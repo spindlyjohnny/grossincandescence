@@ -278,6 +278,7 @@ MonoBehaviour:
   hitsounds: []
   healsound: {fileID: 0}
   dodgesound: {fileID: 0}
+  maxhealth: 0
 --- !u!1 &982781130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2739,6 +2740,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -1.2506104
       objectReference: {fileID: 0}
+    - target: {fileID: 2542878095885064867, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.2950745
+      objectReference: {fileID: 0}
     - target: {fileID: 3290237090741866484, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -25.023254
@@ -3178,6 +3183,10 @@ PrefabInstance:
     - target: {fileID: 5350270345079622918, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.026083207
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518409642044091966, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.2950745
       objectReference: {fileID: 0}
     - target: {fileID: 5697671883248985627, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4806,7 +4815,7 @@ PrefabInstance:
     - target: {fileID: 7195515594548679382, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: levelmusic
       value: 
-      objectReference: {fileID: 8300000, guid: e2c1beaa03b0c634baf62cb4de8f6815, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7509039537118974058, guid: a2d6069c021a24344b4cff08ccb845d3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
