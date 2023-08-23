@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class WinScreen : MonoBehaviour
 {
     public GameObject defaultButton; // button that is automatically selected
-    public int scenetoload;
     public GameObject screen;
     LevelManager levelManager;
     [SerializeField]float soundlength;
@@ -36,9 +35,6 @@ public class WinScreen : MonoBehaviour
         if(soundlength <= 0) {
             AudioManager.instance.StopSFX();
         }
-    }
-    public void NextLevel() {
-        SceneManager.LoadScene(scenetoload);
     }
     public void BackToMain() {
         SceneManager.LoadScene(0);

@@ -132,7 +132,7 @@ public class Player : Unit
         if (dead) yield return null;
         isHit = true;
         AudioManager.instance.PlaySFX(hitsounds[Random.Range(0,hitsounds.Length)]);
-        //StartCoroutine(Invincibility());
+        StartCoroutine(Invincibility());
         yield return new WaitForEndOfFrame();
         isHit = false;
     }

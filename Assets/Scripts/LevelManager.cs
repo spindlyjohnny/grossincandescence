@@ -80,9 +80,9 @@ public class LevelManager : MonoBehaviour
         //yield return new WaitForSeconds(0.25f);
         for(int i = 0; i < players.Length; i++) {
             if (players[i].dead) {
-                players[i].gameObject.SetActive(false); // deactivates player
+                players[i].GetComponent<Collider>().enabled = false; // deactivates player collider
                 yield return new WaitForSeconds(waitToRespawn); // how long to wait before respawning player
-                players[i].gameObject.SetActive(true); // reactivates player
+                players[i].GetComponent<Collider>().enabled = true; // reactivates player collider
                 players[i].transform.position = players[i].respawnpoint; // moves player to respawn point
                 players[i].dead = false;
             }

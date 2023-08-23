@@ -23,7 +23,7 @@ public class Bonfire : MonoBehaviour
         buttonprompt.SetActive(false);
         GetComponentInChildren<Canvas>().worldCamera = FindObjectOfType<Camera>(); // set camera of canvas for button prompt
         levelManager = FindObjectOfType<LevelManager>();
-        //gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
