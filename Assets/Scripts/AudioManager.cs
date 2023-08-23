@@ -7,9 +7,11 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance; // singleton
     [SerializeField] AudioSource sfxaudio, musicaudio; // audiosources for music and sfx
     public AudioClip eventsound;
+    public AudioClip[] music;
     // Start is called before the first frame update
     private void Awake() {
-        if(instance == null) { // create singleton
+        musicaudio.Play();
+        if (instance == null) { // create singleton
             instance = this;
             DontDestroyOnLoad(gameObject);
         } 

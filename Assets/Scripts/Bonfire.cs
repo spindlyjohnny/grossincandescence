@@ -31,8 +31,10 @@ public class Bonfire : MonoBehaviour
     {
         if(buttonprompt.activeSelf && Input.GetButtonDown("Submit " + player.playerNum.ToString())){
             buttonprompt.SetActive(false);
-            AudioManager.instance.PauseMusic();
-            AudioManager.instance.PlaySFX(bonfiresound);
+            //AudioManager.instance.PauseMusic()  ;
+            //FindObjectOfType<AudioManager>().PauseMusic();
+            //FindObjectOfType<AudioManager>().PlaySFX(bonfiresound);
+            // AudioManager.instance.PlaySFX(bonfiresound);
             menu.SetActive(true);
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(defaultButton); // set button that is currently selected (to navigate UI with controller)
