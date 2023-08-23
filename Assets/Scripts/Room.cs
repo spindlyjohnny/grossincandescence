@@ -39,6 +39,7 @@ public class Room : MonoBehaviour {
             levelManager.totalenemiesinwave += i.enemiestospawn[i.currentwave]; // adds up the number of enemies to spawn from each spawner for the current wave
         }
         foreach(var i in players)i.respawnpoint = transform.position; // set respawn point for players
+        foreach (var i in FindObjectsOfType<Bonfire>()) i.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
 }

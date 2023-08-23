@@ -85,7 +85,7 @@ public class Player : Unit
             if(!levelManager.gameoverscreen.activeSelf) StartCoroutine(Death()); // don't start regular death coroutine if game over.
             hitpoints = maxhitpoints;
             Bloodstain bs = FindObjectOfType<Bloodstain>(); // destroys any bloodstain that already exists in the scene and replaces it with a new one.
-            if (bs) bs.gameObject.SetActive(false);
+            if (bs.player == gameObject.GetComponent<Player>()) bs.gameObject.SetActive(false);
         }
     }
     private void FixedUpdate() {

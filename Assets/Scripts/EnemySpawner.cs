@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
                 go.GetComponentInChildren<Enemy>().spawned = true;
                 go.GetComponentInChildren<Enemy>().canMove = true;
             }
-            else if (currentwave > 5){
+            else if (currentwave >= 5){
                 GameObject go = Instantiate(instprefab[Random.Range(0, instprefab.Length)], transform.position, transform.rotation); // spawns any enemy type
                 go.GetComponentInChildren<Enemy>().spawned = true;
                 go.GetComponentInChildren<Enemy>().canMove = true;

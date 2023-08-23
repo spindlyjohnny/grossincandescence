@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5361201a1cea22640b508fd3a7527748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultButton: {fileID: 0}
+  defaultButton: {fileID: 77328365323721532}
   screen: {fileID: 1969508430677856771}
   soundlength: 0
   ogsoundlength: 0
