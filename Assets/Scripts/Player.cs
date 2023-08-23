@@ -33,10 +33,6 @@ public class Player : Unit
     public AudioClip healsound,dodgesound;
     public float maxhealth;
     // Start is called before the first frame update
-    protected override void OnEnable() {
-        isHealing = false;
-        base.OnEnable();
-    }
     void Start() {
         anim = GetComponent<Animator>();
         hitpoints = maxhitpoints;

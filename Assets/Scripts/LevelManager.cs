@@ -85,6 +85,7 @@ public class LevelManager : MonoBehaviour
                 players[i].GetComponent<Collider>().enabled = true; // reactivates player collider
                 players[i].transform.position = players[i].respawnpoint; // moves player to respawn point
                 players[i].dead = false;
+                players[i].isHealing = false;
             }
         }
        
